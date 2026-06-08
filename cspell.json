@@ -1,0 +1,18 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "docusaurus",
+    "homotechsual",
+    "showcaseable",
+    "swizzleable",
+    "ajv",
+    "clsx",
+    "popper",
+    "popperjs",
+    "rehype",
+    "remark",
+    "vitest"
+  ],
+  "ignorePaths": ["node_modules", "lib", "*.lock"]
+}
