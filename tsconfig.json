@@ -5,7 +5,7 @@
     "lib": ["ESNext", "DOM"],
     "jsx": "react-jsx",
     "outDir": "./lib",
-    "rootDir": "./src",
+    "rootDir": ".",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
