@@ -133,28 +133,30 @@ export default function ShowcaseFilters({ items, options, onFilter }: Props): Re
         })}
       </ul>
 
-      <ul className={clsx('clean-list', styles.tagList)}>
-        {Object.entries(options.statuses).map(([key, status]) => {
-          const id = `showcase-status-${key}`
-          const Icon = getIcon(status.icon)
-          return (
-            <li key={key} className={styles.tagListItem}>
-              <ShowcaseTooltip id={id} text={status.description} anchorEl="#__docusaurus">
-                <ShowcaseStatusSelect
-                  status={key}
-                  id={id}
-                  label={status.label}
-                  icon={Icon
-                    ? <span className={styles.tagIcon} style={{ '--showcase-tag-color': status.color ?? undefined } as React.CSSProperties}><Icon size={18} /></span>
-                    : status.color
-                      ? <span className={styles.tagColorDot} style={{ '--showcase-tag-color': status.color } as React.CSSProperties} />
-                      : null}
-                />
-              </ShowcaseTooltip>
-            </li>
-          )
-        })}
-      </ul>
+      {Object.keys(options.statuses).length > 0 && (
+        <ul className={clsx('clean-list', styles.tagList)}>
+          {Object.entries(options.statuses).map(([key, status]) => {
+            const id = `showcase-status-${key}`
+            const Icon = getIcon(status.icon)
+            return (
+              <li key={key} className={styles.tagListItem}>
+                <ShowcaseTooltip id={id} text={status.description} anchorEl="#__docusaurus">
+                  <ShowcaseStatusSelect
+                    status={key}
+                    id={id}
+                    label={status.label}
+                    icon={Icon
+                      ? <span className={styles.tagIcon} style={{ '--showcase-tag-color': status.color ?? undefined } as React.CSSProperties}><Icon size={18} /></span>
+                      : status.color
+                        ? <span className={styles.tagColorDot} style={{ '--showcase-tag-color': status.color } as React.CSSProperties} />
+                        : null}
+                  />
+                </ShowcaseTooltip>
+              </li>
+            )
+          })}
+        </ul>
+      )}
 
       <div className={styles.searchContainer}>
         <input
