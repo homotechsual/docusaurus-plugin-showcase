@@ -3,7 +3,6 @@ name: Docusaurus
 description: Build optimized websites quickly, focus on your content. Powered by MDX, React, and a rich plugin ecosystem.
 website: https://docusaurus.io
 source: https://github.com/facebook/docusaurus
-preview: https://docusaurus.io/img/social-card.png
 tags:
   - featured
   - open-source

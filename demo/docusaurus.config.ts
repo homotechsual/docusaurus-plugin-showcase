@@ -70,6 +70,11 @@ const config: Config = {
             description: 'Built with or designed for React.',
             color: '#61dafb',
           },
+          dotnet: {
+            label: '.NET',
+            description: 'Built with or designed for .NET.',
+            color: '#512bd4',
+          },
           vue: {
             label: 'Vue',
             description: 'Built with or designed for Vue.',
