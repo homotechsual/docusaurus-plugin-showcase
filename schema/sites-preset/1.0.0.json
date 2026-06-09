@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/homotechsual/docusaurus-plugin-showcase/schema/sites-preset/1.0.0.json",
+  "title": "SiteShowcaseItem",
+  "type": "object",
+  "required": ["id", "description", "website"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for this site"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "title": {
+      "type": "string",
+      "description": "Alias for name (compatible with Docusaurus site showcase format)"
+    },
+    "description": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string",
+      "format": "uri"
+    },
+    "source": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "URL to the website's source repository"
+    },
+    "preview": {
+      "type": ["string", "null"],
+      "description": "Preview image URL. null = use screenshot service or co-located image file."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
