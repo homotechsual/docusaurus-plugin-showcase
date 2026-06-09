@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/homotechsual/docusaurus-plugin-showcase/schema/showcase/1.0.0.json",
+  "title": "ShowcaseItem",
+  "type": "object",
+  "required": ["id", "name", "description", "website"],
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for this item (e.g. 'author.plugin-name')"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description"
+    },
+    "website": {
+      "type": "string",
+      "format": "uri",
+      "description": "Primary URL (docs site, GitHub page, npm page, etc.)"
+    },
+    "source": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Source code URL"
+    },
+    "preview": {
+      "type": ["string", "null"],
+      "description": "Preview image URL. null = use screenshot service"
+    },
+    "author": {
+      "type": ["string", "null"],
+      "description": "Author handle or name"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tag keys defined in plugin options"
+    },
+    "status": {
+      "type": ["string", "null"],
+      "description": "Status key defined in plugin options"
+    },
+    "npmPackages": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "npm package name(s)"
+    },
+    "minimumVersion": {
+      "type": ["string", "null"],
+      "description": "Minimum Docusaurus version required"
+    }
+  }
+}
