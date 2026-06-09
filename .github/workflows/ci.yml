@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Remove built-in Yarn
+        run: npm uninstall -g yarn
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 'current'
+          cache: 'yarn'
+
+      - run: yarn install --immutable
+
+      - run: yarn build
+
+      - run: yarn lint
+
+      - run: yarn test
