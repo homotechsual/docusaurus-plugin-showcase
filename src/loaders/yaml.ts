@@ -4,10 +4,6 @@ import { fileURLToPath } from 'node:url'
 import { globSync } from 'glob'
 import yaml from 'js-yaml'
 import { Ajv } from 'ajv'
-import { createRequire } from 'node:module'
-const require = createRequire(import.meta.url)
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const addFormats: (ajv: InstanceType<typeof Ajv>) => void = require('ajv-formats')
 import type { ShowcaseItem, PluginOptions } from '../core/types.js'
 
 type WarnFn = (message: string) => void
@@ -28,8 +24,7 @@ export async function loadShowcaseItems(
     options.schemaPath ??
     fileURLToPath(new URL('../../schema/showcase/1.0.0.json', import.meta.url))
 
-  const ajv = new Ajv({ allErrors: true })
-  addFormats(ajv)
+  const ajv = new Ajv({ allErrors: true, strict: false })
   let validate: ReturnType<typeof ajv.compile> | null = null
 
   if (existsSync(schemaPath)) {
