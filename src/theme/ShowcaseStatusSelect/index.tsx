@@ -1,6 +1,7 @@
 import React, { type ReactNode } from 'react'
 import { useHistory, useLocation } from '@docusaurus/router'
 import { toggleListItem } from '../../core/utils.js'
+import styles from './styles.module.css'
 
 type Props = {
   status: string
@@ -30,16 +31,18 @@ export default function ShowcaseStatusSelect({ status, id, label, icon }: Props)
   }
 
   return (
-    <label htmlFor={id} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+    <>
       <input
         type="checkbox"
         id={id}
+        className={styles.srOnly}
         checked={checked}
         onChange={toggle}
-        style={{ marginRight: 4 }}
       />
-      {label}
-      {icon}
-    </label>
+      <label htmlFor={id} className={styles.checkboxLabel}>
+        {label}
+        {icon}
+      </label>
+    </>
   )
 }
