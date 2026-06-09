@@ -16,7 +16,7 @@ npm install @homotechsual/docusaurus-plugin-showcase
 yarn add @homotechsual/docusaurus-plugin-showcase
 ```
 
----
+***
 
 ## Plugins preset
 
@@ -64,7 +64,7 @@ minimumVersion: '3.0.0'
 
 **Statuses:** `maintained` · `unmaintained` · `unknown`
 
----
+***
 
 ## Sites preset
 
@@ -108,7 +108,7 @@ tags:
 
 **Tags:** `favorite`, `opensource`, `product`, `design`, `i18n`, `versioning`, `large`, `meta`, `personal`, `rtl`
 
----
+***
 
 ## Co-located images
 
@@ -124,7 +124,7 @@ Supported extensions (checked in order): `.png`, `.jpg`, `.jpeg`, `.webp`, `.gif
 
 A co-located image takes precedence over any `preview` URL in the YAML file. Items that have neither a co-located image nor a `preview` URL fall back to the [slorber-api-screenshot](https://github.com/slorber/slorber-api-screenshot) service.
 
----
+***
 
 ## Custom configuration
 
@@ -206,12 +206,12 @@ const myShowcase: PluginOptions = {
 
 Items that fail validation are skipped with a warning, not a build error.
 
----
+***
 
 ## All options
 
 | Option | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `dataDir` | `string` | ✓ | Directory of `.yaml` files, relative to the Docusaurus site root. |
 | `routeBasePath` | `string` | ✓ | URL path for the showcase page (`plugins` → `/plugins`). |
 | `tags` | `Record<string, TagDef>` | ✓ | Tag definitions. At least one tag required. |
@@ -226,7 +226,7 @@ Items that fail validation are skipped with a warning, not a build error.
 ### TagDef
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `label` | `string` | ✓ | Display name shown on the filter chip. |
 | `description` | `string` | ✓ | Tooltip text shown when hovering the chip. |
 | `color` | `string` | ✓ | CSS colour for the tag colour dot. |
@@ -235,13 +235,13 @@ Items that fail validation are skipped with a warning, not a build error.
 ### StatusDef
 
 | Field | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `label` | `string` | ✓ | Display name shown on the card. |
 | `description` | `string` | ✓ | Status description. |
 | `color` | `string` | | CSS colour for the status indicator. |
 | `icon` | `string` | | [Lucide](https://lucide.dev/icons/) icon name rendered beside the label. |
 
----
+***
 
 ## Swizzling components
 
@@ -252,7 +252,7 @@ npx docusaurus swizzle @homotechsual/docusaurus-plugin-showcase ShowcaseCard
 ```
 
 | Component | Safety | Notes |
-|---|---|---|
+| --- | --- | --- |
 | `ShowcasePage` | unsafe / wrap | Top-level page layout. |
 | `ShowcaseCard` | safe | Individual item card. |
 | `ShowcaseFilters` | safe | Filter sidebar / bar. |
@@ -261,7 +261,7 @@ npx docusaurus swizzle @homotechsual/docusaurus-plugin-showcase ShowcaseCard
 | `ShowcaseStatusSelect` | unsafe / wrap | Status filter select. |
 | `ShowcaseTooltip` | safe | Tooltip wrapper. |
 
----
+***
 
 ## Licence
 
