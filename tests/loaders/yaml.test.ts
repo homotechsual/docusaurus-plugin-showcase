@@ -55,4 +55,29 @@ describe('loadShowcaseItems', () => {
     expect(item?.name).toBe('Site With Title')
     expect((item as Record<string, unknown>)['title']).toBeUndefined()
   })
+
+  it('sets _localImagePath when a co-located image file exists', async () => {
+    const warnings: string[] = []
+    const items = await loadShowcaseItems(
+      fixturesDir,
+      { dataDir: '.', routeBasePath: 'showcase', tags: {}, statuses: {} },
+      (msg) => warnings.push(msg),
+    )
+    const item = items.find((i) => i.id === 'test.with-image') as Record<string, unknown> | undefined
+    expect(item).toBeDefined()
+    expect(typeof item?._localImagePath).toBe('string')
+    expect((item?._localImagePath as string)).toMatch(/test-with-image\.png$/)
+  })
+
+  it('does not set _localImagePath when no co-located image exists', async () => {
+    const warnings: string[] = []
+    const items = await loadShowcaseItems(
+      fixturesDir,
+      { dataDir: '.', routeBasePath: 'showcase', tags: {}, statuses: {} },
+      (msg) => warnings.push(msg),
+    )
+    const item = items.find((i) => i.id === 'test.my-plugin') as Record<string, unknown> | undefined
+    expect(item).toBeDefined()
+    expect(item?._localImagePath).toBeUndefined()
+  })
 })

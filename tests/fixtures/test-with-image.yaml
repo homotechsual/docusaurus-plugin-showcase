@@ -1,0 +1,5 @@
+id: test.with-image
+name: Plugin With Image
+description: A test plugin that has a co-located preview image.
+website: https://example.com/with-image
+tags: []
