@@ -7,16 +7,10 @@ const config: Config = {
   title: 'Docusaurus Plugin Showcase',
   tagline: 'A swizzleable showcase page plugin for Docusaurus',
   favicon: 'img/favicon.ico',
-  url: 'https://homotechsual.github.io',
-  baseUrl: '/docusaurus-plugin-showcase/',
-  organizationName: 'homotechsual',
-  projectName: 'docusaurus-plugin-showcase',
+  url: 'https://docusaurus-plugin-showcase.pages.dev',
+  baseUrl: '/',
   onBrokenLinks: 'warn',
-  markdown: {
-    hooks: {
-      onBrokenMarkdownLinks: 'warn',
-    },
-  },
+  onBrokenMarkdownLinks: 'warn',
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],

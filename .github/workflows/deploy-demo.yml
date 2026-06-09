@@ -2,23 +2,48 @@ name: Deploy Demo
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+  pull_request_target:
+    types:
+      - opened
+      - labeled
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
+  contents: write
+  deployments: write
+  pull-requests: write
 
 jobs:
-  build:
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
+    if: ${{
+      github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false) ||
+      (github.event_name == 'pull_request_target' &&
+      github.event.action == 'labeled' &&
+      github.event.pull_request.head.repo.fork == true &&
+      contains(github.event.label.name, 'request-deploy'))
+      }}
+
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.head.ref || github.ref }}
+      cancel-in-progress: true
+    timeout-minutes: 15
+
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.ref }}
+          fetch-depth: 0
 
       - name: Remove built-in Yarn
         run: npm uninstall -g yarn
@@ -31,7 +56,8 @@ jobs:
           node-version: 'current'
           cache: 'yarn'
 
-      - run: yarn install --immutable
+      - name: Install dependencies
+        run: yarn install --immutable
 
       - name: Build plugin
         run: yarn build
@@ -39,17 +65,100 @@ jobs:
       - name: Build demo
         run: yarn workspace docusaurus-plugin-showcase-demo build
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Publish to Cloudflare Pages
+        id: cloudflare-pages-deploy
+        uses: cloudflare/wrangler-action@v4
         with:
-          path: demo/build
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: 'pages deploy demo/build --project-name=docusaurus-plugin-showcase'
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      - name: Resolve deployment URLs
+        id: deployment-urls
+        shell: bash
+        env:
+          DEPLOYMENT_URL: ${{ steps.cloudflare-pages-deploy.outputs.deployment-url }}
+          ALIAS_URL: ${{ steps.cloudflare-pages-deploy.outputs.pages-deployment-alias-url }}
+        run: |
+          preview_url="$ALIAS_URL"
+          if [ -z "$preview_url" ] || [ "$preview_url" = "undefined" ]; then
+            preview_url="$DEPLOYMENT_URL"
+          fi
+          echo "deployment_url=$DEPLOYMENT_URL" >> "$GITHUB_OUTPUT"
+          echo "preview_url=$preview_url" >> "$GITHUB_OUTPUT"
+
+      - name: Write deployment summary
+        shell: bash
+        env:
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          ENVIRONMENT: ${{ steps.cloudflare-pages-deploy.outputs.pages-environment }}
+          DEPLOYMENT_URL: ${{ steps.deployment-urls.outputs.deployment_url }}
+          PREVIEW_URL: ${{ steps.deployment-urls.outputs.preview_url }}
+        run: |
+          {
+            echo "## Deploying with Cloudflare Pages"
+            echo
+            echo "| Name | Result |"
+            echo "| --- | --- |"
+            echo "| Last commit | \`$COMMIT_SHA\` |"
+            echo "| Deploy log | [View run]($RUN_URL) |"
+            if [ "${{ github.event_name }}" = "push" ] && [ "${{ github.ref }}" = "refs/heads/main" ]; then
+              echo "| Deployment URL | [$DEPLOYMENT_URL]($DEPLOYMENT_URL) |"
+            else
+              echo "| Preview URL | [$PREVIEW_URL]($PREVIEW_URL) |"
+              echo "| Deployment URL | [$DEPLOYMENT_URL]($DEPLOYMENT_URL) |"
+            fi
+            echo "| Environment | $ENVIRONMENT |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Create commit comment
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        uses: peter-evans/commit-comment@v4
+        with:
+          body: |
+            ### Successfully deployed to Cloudflare Pages!
+
+            | Item | Value |
+            | --- | --- |
+            | **Latest commit** | ${{ github.event.pull_request.head.sha || github.sha }} |
+            | **Deploy log** | ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} |
+            | **Deployment URL** | [${{ steps.cloudflare-pages-deploy.outputs.deployment-url }}](${{ steps.cloudflare-pages-deploy.outputs.deployment-url }}) |
+            | **Environment** | ${{ steps.cloudflare-pages-deploy.outputs.pages-environment }} |
+
+      - name: Create PR comment
+        if: ${{ github.event_name == 'pull_request' || github.event_name == 'pull_request_target' }}
+        uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            ### Successfully deployed to Cloudflare Pages!
+
+            | Item | Value |
+            | --- | --- |
+            | **Latest commit** | ${{ github.event.pull_request.head.sha || github.sha }} |
+            | **Deploy log** | ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} |
+            | **Preview URL** | [${{ steps.cloudflare-pages-deploy.outputs.pages-deployment-alias-url || steps.cloudflare-pages-deploy.outputs.deployment-url }}](${{ steps.cloudflare-pages-deploy.outputs.pages-deployment-alias-url || steps.cloudflare-pages-deploy.outputs.deployment-url }}) |
+            | **Environment** | ${{ steps.cloudflare-pages-deploy.outputs.pages-environment }} |
+
+  comment:
+    name: Comment
     runs-on: ubuntu-latest
-    needs: build
+    if: ${{
+      github.event_name == 'pull_request_target' &&
+      github.event.action == 'opened' &&
+      github.event.pull_request.head.repo.fork == true
+      }}
+
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Create PR comment
+        run: |
+          cat << EOF > comment.md
+          ## Deployments require the 'request-deploy' label
+
+          This is a forked repository. For security reasons, deployments from forks are not automatic.
+          Add the 'request-deploy' label to this PR to trigger a preview deployment.
+          EOF
+          gh pr comment ${{ github.event.number }} -R ${{ github.repository }} -F comment.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
