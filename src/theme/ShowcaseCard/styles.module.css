@@ -6,6 +6,8 @@
 
 .cardImage {
   overflow: hidden;
+  height: 150px;
+  border-bottom: 2px solid var(--ifm-color-emphasis-200);
 }
 
 .cardHeader {
@@ -24,10 +26,13 @@
 .cardLink {
   color: var(--ifm-color-primary);
   text-decoration: none;
+  background: linear-gradient(var(--ifm-color-primary), var(--ifm-color-primary))
+    0% 100% / 0% 1px no-repeat;
+  transition: background-size ease-out 200ms;
 }
 
-.cardLink:hover {
-  text-decoration: underline;
+.cardLink:not(:focus):hover {
+  background-size: 100% 1px;
 }
 
 .cardBody {
@@ -91,4 +96,17 @@
 
 .sourceBtn {
   margin-left: auto;
+}
+
+.sourceBtn:focus-visible {
+  background-color: var(--ifm-color-secondary-dark);
+}
+
+[data-theme='dark'] .sourceBtn {
+  background-color: var(--ifm-color-emphasis-200) !important;
+  color: inherit;
+}
+
+[data-theme='dark'] .sourceBtn:hover {
+  background-color: var(--ifm-color-emphasis-300) !important;
 }
