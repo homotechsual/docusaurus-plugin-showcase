@@ -31,3 +31,9 @@ declare module '@docusaurus/Link' {
   type LinkProps = ComponentPropsWithoutRef<'a'> & { href: string }
   export default function Link(props: LinkProps): JSX.Element
 }
+
+declare module '@theme/Layout' {
+  import type { ReactNode } from 'react'
+  type LayoutProps = { title?: string; description?: string; children?: ReactNode }
+  export default function Layout(props: LayoutProps): JSX.Element
+}
