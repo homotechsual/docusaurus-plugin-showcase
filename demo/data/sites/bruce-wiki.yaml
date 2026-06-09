@@ -1,0 +1,10 @@
+id: bruce-wiki
+title: Bruce's Wiki
+description: A personal wiki by Bruce Song
+website: https://wiki.brucesong.xyz/
+source: https://github.com/recallwei/wiki
+preview: https://raw.githubusercontent.com/facebook/docusaurus/main/website/src/data/showcase/bruce-wiki.png
+tags:
+  - opensource
+  - design
+  - personal

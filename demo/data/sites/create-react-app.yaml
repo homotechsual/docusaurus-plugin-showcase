@@ -1,0 +1,9 @@
+id: create-react-app
+title: Create React App
+description: Set up a modern web app by running one command
+website: https://facebook.github.io/create-react-app/
+source: https://github.com/facebook/create-react-app/tree/main/docusaurus/website
+preview: https://raw.githubusercontent.com/facebook/docusaurus/main/website/src/data/showcase/create-react-app.png
+tags:
+  - meta
+  - opensource

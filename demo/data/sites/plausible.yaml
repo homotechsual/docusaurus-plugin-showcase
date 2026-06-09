@@ -1,0 +1,9 @@
+id: plausible
+title: Plausible Analytics
+description: A simple, open source, lightweight (< 1 KB) and privacy-friendly alternative to Google Analytics
+website: https://plausible.io/docs
+source: https://github.com/plausible/docs
+preview: https://raw.githubusercontent.com/facebook/docusaurus/main/website/src/data/showcase/plausible.png
+tags:
+  - opensource
+  - product

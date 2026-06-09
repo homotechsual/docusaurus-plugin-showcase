@@ -1,0 +1,10 @@
+id: johnnyreilly
+title: johnnyreilly.com
+description: The blog of John Reilly — frontend dev, open source contributor, prolific writer.
+website: https://johnnyreilly.com/
+source: https://github.com/johnnyreilly/blog.johnnyreilly.com
+preview: https://raw.githubusercontent.com/facebook/docusaurus/main/website/src/data/showcase/johnnyreilly.png
+tags:
+  - opensource
+  - personal
+  - large

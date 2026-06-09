@@ -1,0 +1,10 @@
+id: astronomer
+title: Astronomer
+description: Enterprise-grade framework for Apache Airflow. Production-ready Airflow environments with just a few clicks.
+website: https://docs.astronomer.io
+source: https://github.com/astronomer/docs
+preview: https://raw.githubusercontent.com/facebook/docusaurus/main/website/src/data/showcase/astronomer.png
+tags:
+  - product
+  - versioning
+  - opensource

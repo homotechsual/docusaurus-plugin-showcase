@@ -1,0 +1,10 @@
+id: apache-apisix
+title: Apache APISIX
+description: A Dynamic, Real-Time, High-Performance Cloud-Native API Gateway
+website: https://apisix.apache.org/
+source: https://github.com/apache/apisix-website
+preview: https://raw.githubusercontent.com/facebook/docusaurus/main/website/src/data/showcase/apache-apisix.png
+tags:
+  - opensource
+  - i18n
+  - large

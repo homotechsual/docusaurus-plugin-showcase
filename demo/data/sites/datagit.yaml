@@ -1,0 +1,10 @@
+id: datagit
+title: Datagit
+description: A Persian tutorial website strives to make quality education for everyone.
+website: https://datagit.ir/
+source: https://github.com/massoudmaboudi/datagit
+preview: https://raw.githubusercontent.com/facebook/docusaurus/main/website/src/data/showcase/datagit.png
+tags:
+  - favorite
+  - opensource
+  - rtl

@@ -1,0 +1,10 @@
+id: algolia-docsearch
+title: Algolia DocSearch
+description: The best search experience for docs, integrates in minutes, for free
+website: https://docsearch.algolia.com/
+source: https://github.com/algolia/docsearch/tree/main/packages/website
+preview: https://raw.githubusercontent.com/facebook/docusaurus/main/website/src/data/showcase/algolia.png
+tags:
+  - favorite
+  - opensource
+  - product

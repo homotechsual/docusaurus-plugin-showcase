@@ -1,0 +1,8 @@
+id: ai-speaker
+title: AI-Speaker
+description: Local, reliable, fast and private Audio and IoT gate.
+website: https://ai-speaker.com/
+source: https://github.com/sviete/AIS-WWW
+preview: https://raw.githubusercontent.com/facebook/docusaurus/main/website/src/data/showcase/aispeaker.png
+tags:
+  - opensource

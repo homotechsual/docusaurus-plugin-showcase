@@ -1,0 +1,8 @@
+id: brainboard
+title: Brainboard IDE
+description: The new way to operate and manage your Cloud infrastructure — visually design, provision, and manage with Terraform.
+website: https://docs.brainboard.co/start/cloud-use-cases
+preview: https://raw.githubusercontent.com/facebook/docusaurus/main/website/src/data/showcase/brainboard.png
+tags:
+  - product
+  - design

@@ -1,0 +1,9 @@
+id: boxyhq
+title: BoxyHQ
+description: Enterprise Readiness made simple — open source security building blocks for developers.
+website: https://boxyhq.com/
+source: https://github.com/boxyhq/website
+preview: https://raw.githubusercontent.com/facebook/docusaurus/main/website/src/data/showcase/boxyhq.png
+tags:
+  - opensource
+  - product

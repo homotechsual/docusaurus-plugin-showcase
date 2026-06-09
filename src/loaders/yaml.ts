@@ -4,7 +4,12 @@ import { fileURLToPath } from 'node:url'
 import { globSync } from 'glob'
 import yaml from 'js-yaml'
 import { Ajv2020 as Ajv } from 'ajv/dist/2020.js'
+import addFormats from 'ajv-formats'
 import type { ShowcaseItem, PluginOptions } from '../core/types.js'
+
+// ajv-formats v3 ships as CJS; handle both interop shapes
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const applyFormats = (addFormats as any).default ?? addFormats
 
 type WarnFn = (message: string) => void
 
@@ -25,6 +30,7 @@ export async function loadShowcaseItems(
     fileURLToPath(new URL('../../schema/showcase/1.0.0.json', import.meta.url))
 
   const ajv = new Ajv({ allErrors: true, strict: false })
+  applyFormats(ajv)
   let validate: ReturnType<typeof ajv.compile> | null = null
 
   if (existsSync(schemaPath)) {
