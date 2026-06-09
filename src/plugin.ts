@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 import type { LoadContext, OptionValidationContext, Plugin } from '@docusaurus/types'
 import type { PluginOptions, ShowcasePageData } from './core/types.js'
 import { loadShowcaseItems } from './loaders/yaml.js'
+import { generateShowcaseModule } from './core/module-generator.js'
 
 function pluginShowcase(
   context: LoadContext,
@@ -28,8 +29,8 @@ function pluginShowcase(
       const { createData, addRoute } = actions
 
       const showcaseDataPath = await createData(
-        'showcase-data.json',
-        JSON.stringify(content),
+        'showcase-data.js',
+        generateShowcaseModule(content),
       )
 
       addRoute({
