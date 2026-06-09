@@ -1,4 +1,10 @@
-# @homotechsual/docusaurus-plugin-showcase
+# Showcase for Docusaurus
+
+[![NPM Version](https://img.shields.io/npm/v/%40homotechsual%2Fdocusaurus-plugin-showcase?style=for-the-badge)
+](https://www.npmjs.com/package/@homotechsual/docusaurus-plugin-showcase)
+[![NPM Last Update](https://img.shields.io/npm/last-update/%40homotechsual%2Fdocusaurus-plugin-showcase?style=for-the-badge)](https://www.npmjs.com/package/@homotechsual/docusaurus-plugin-showcase)
+[![NPM Downloads](https://img.shields.io/npm/dy/%40homotechsual%2Fdocusaurus-plugin-showcase?style=for-the-badge)
+](https://www.npmjs.com/package/@homotechsual/docusaurus-plugin-showcase)
 
 A Docusaurus plugin for building swizzleable showcase / directory pages from YAML data files.
 
