@@ -9,7 +9,7 @@ type Props = {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function ShowcaseTooltip({ id, text, anchorEl, children }: Props): JSX.Element {
+export default function ShowcaseTooltip({ id, text, anchorEl, children }: Props): React.JSX.Element {
   const [open, setOpen] = useState(false)
   const triggerRef = useRef<HTMLSpanElement>(null)
   const tooltipRef = useRef<HTMLDivElement>(null)

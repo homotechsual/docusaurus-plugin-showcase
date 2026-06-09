@@ -1,0 +1,63 @@
+.srOnly {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: polygon(0 0, 0 0, 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
+.checkboxLabel {
+  --toggle-height: 25px;
+  --toggle-width: 80px;
+  --toggle-border: 2px;
+  display: flex;
+  width: var(--toggle-width);
+  height: var(--toggle-height);
+  position: relative;
+  border-radius: var(--toggle-height);
+  border: var(--toggle-border) solid var(--ifm-color-primary-darkest);
+  cursor: pointer;
+  justify-content: space-around;
+  align-items: center;
+  opacity: 0.75;
+  transition: opacity var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  box-shadow: var(--ifm-global-shadow-md);
+}
+
+.checkboxLabel:hover {
+  opacity: 1;
+  box-shadow: var(--ifm-global-shadow-md), 0 0 2px 1px var(--ifm-color-primary-dark);
+}
+
+.checkboxLabel::after {
+  position: absolute;
+  content: '';
+  inset: 0;
+  width: calc(var(--toggle-width) / 2);
+  height: 100%;
+  border-radius: var(--toggle-height);
+  background-color: var(--ifm-color-primary-darkest);
+  transition: transform var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  transform: translateX(calc(var(--toggle-width) / 2 - var(--toggle-border)));
+}
+
+.checkboxLabel > * {
+  font-size: 0.8rem;
+  color: inherit;
+  z-index: 1;
+  transition: opacity 150ms ease-in 50ms;
+}
+
+input:checked + .checkboxLabel::after {
+  transform: translateX(calc(-1 * var(--toggle-border)));
+}
+
+input:focus-visible + .checkboxLabel {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}

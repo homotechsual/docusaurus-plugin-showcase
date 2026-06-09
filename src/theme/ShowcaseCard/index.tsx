@@ -20,7 +20,7 @@ function getCardImage(item: ShowcaseItem): string {
   )
 }
 
-export default function ShowcaseCard({ item, options }: Props): JSX.Element {
+export default function ShowcaseCard({ item, options }: Props): React.JSX.Element {
   const image = getCardImage(item)
   const isFavourite = options.favouriteTag ? item.tags.includes(options.favouriteTag) : false
 

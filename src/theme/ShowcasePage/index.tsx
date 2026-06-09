@@ -14,7 +14,7 @@ type Props = {
   showcase: ShowcasePageData
 }
 
-export default function ShowcasePage({ showcase }: Props): JSX.Element {
+export default function ShowcasePage({ showcase }: Props): React.JSX.Element {
   const { items, options } = showcase
 
   const sortedItems = useMemo(() => {

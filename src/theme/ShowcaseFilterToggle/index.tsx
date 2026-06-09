@@ -1,6 +1,8 @@
 import React from 'react'
+import clsx from 'clsx'
 import { useHistory, useLocation } from '@docusaurus/router'
 import Translate from '@docusaurus/Translate'
+import styles from './styles.module.css'
 
 export type Operator = 'AND' | 'OR'
 
@@ -10,26 +12,34 @@ export function readOperator(search: string): Operator {
   return (new URLSearchParams(search).get(OperatorQueryKey) as Operator) ?? 'OR'
 }
 
-export default function ShowcaseFilterToggle(): JSX.Element {
+export default function ShowcaseFilterToggle(): React.JSX.Element {
+  const id = 'showcase_filter_toggle'
   const history = useHistory()
   const location = useLocation()
   const operator = readOperator(location.search)
+  const isAnd = operator === 'AND'
 
   const toggle = () => {
-    const next = operator === 'OR' ? 'AND' : 'OR'
+    const next = isAnd ? 'OR' : 'AND'
     const search = new URLSearchParams(location.search)
     search.set(OperatorQueryKey, next)
     history.push({ ...location, search: search.toString() })
   }
 
   return (
-    <button onClick={toggle} className="button button--sm button--secondary">
-      <Translate
-        id="showcase.filterToggle.label"
-        values={{ operator: <b>{operator}</b> }}
-      >
-        {'Filter: {operator}'}
-      </Translate>
-    </button>
+    <div>
+      <input
+        type="checkbox"
+        id={id}
+        className={styles.srOnly}
+        aria-label="Toggle between OR and AND for the selected filters"
+        onChange={toggle}
+        checked={isAnd}
+      />
+      <label htmlFor={id} className={clsx(styles.checkboxLabel, 'shadow--md')}>
+        <Translate id="showcase.filterToggle.or">OR</Translate>
+        <Translate id="showcase.filterToggle.and">AND</Translate>
+      </label>
+    </div>
   )
 }

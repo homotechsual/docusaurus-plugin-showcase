@@ -15,7 +15,7 @@ export function readSearchTags(search: string): string[] {
   return new URLSearchParams(search).getAll(TagsQueryKey)
 }
 
-export default function ShowcaseTagSelect({ tag, id, label, icon }: Props): JSX.Element {
+export default function ShowcaseTagSelect({ tag, id, label, icon }: Props): React.JSX.Element {
   const location = useLocation()
   const history = useHistory()
   const selectedTags = readSearchTags(location.search)

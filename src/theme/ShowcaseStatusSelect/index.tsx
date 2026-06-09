@@ -15,7 +15,7 @@ export function readMaintenanceStatus(search: string): string[] {
   return new URLSearchParams(search).getAll(StatusQueryKey)
 }
 
-export default function ShowcaseStatusSelect({ status, id, label, icon }: Props): JSX.Element {
+export default function ShowcaseStatusSelect({ status, id, label, icon }: Props): React.JSX.Element {
   const location = useLocation()
   const history = useHistory()
   const selectedStatuses = readMaintenanceStatus(location.search)

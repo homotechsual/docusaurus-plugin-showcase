@@ -61,7 +61,7 @@ type Props = {
   onFilter: (filtered: ShowcaseItem[]) => void
 }
 
-export default function ShowcaseFilters({ items, options, onFilter }: Props): JSX.Element {
+export default function ShowcaseFilters({ items, options, onFilter }: Props): React.JSX.Element {
   const location = useLocation()
   const history = useHistory()
   const [searchValue, setSearchValue] = useState<string>('')
