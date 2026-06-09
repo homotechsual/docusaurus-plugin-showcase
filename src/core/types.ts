@@ -27,6 +27,7 @@ export type ShowcaseItem = {
 }
 
 export type PluginOptions = {
+  id?: string
   dataDir: string
   routeBasePath: string
   tags: Record<string, TagDef>

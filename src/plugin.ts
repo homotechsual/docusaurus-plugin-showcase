@@ -58,6 +58,7 @@ export function validateOptions({
   }
 
   return {
+    id: 'default',
     routeBasePath: 'showcase',
     ...opts,
     dataDir: opts.dataDir,

@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=../../node_modules/@homotechsual/docusaurus-plugin-showcase/schema/plugins-preset/1.0.0.json
+id: daldridge.lunr
+name: Lunr Search
+description: Adds client-side full-text search to Docusaurus using the Lunr.js search library. Works offline with no external dependencies.
+website: https://github.com/daldridge/docusaurus-plugin-lunr
+source: https://github.com/daldridge/docusaurus-plugin-lunr
+author: daldridge
+tags:
+  - search
+status: unmaintained
+npmPackages:
+  - docusaurus-plugin-lunr

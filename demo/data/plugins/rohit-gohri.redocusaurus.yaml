@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=../../node_modules/@homotechsual/docusaurus-plugin-showcase/schema/plugins-preset/1.0.0.json
+id: rohit-gohri.redocusaurus
+name: Redocusaurus
+description: Integrate OpenAPI / Swagger definitions into your Docusaurus site using Redoc. Renders beautiful, interactive API reference pages.
+website: https://redocusaurus.vercel.app
+source: https://github.com/rohit-gohri/redocusaurus
+author: rohit-gohri
+tags:
+  - api
+  - theme
+status: maintained
+npmPackages:
+  - redocusaurus

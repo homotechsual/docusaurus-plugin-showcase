@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=../../node_modules/@homotechsual/docusaurus-plugin-showcase/schema/plugins-preset/1.0.0.json
+id: cloud-annotations.openapi
+name: OpenAPI Docs
+description: Generate interactive API reference documentation from OpenAPI 3.0 / Swagger 2.0 specs. Supports multiple API definitions.
+website: https://github.com/cloud-annotations/docusaurus-openapi
+source: https://github.com/cloud-annotations/docusaurus-openapi
+author: cloud-annotations
+tags:
+  - api
+status: unknown
+npmPackages:
+  - docusaurus-openapi

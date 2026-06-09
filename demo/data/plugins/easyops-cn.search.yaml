@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=../../node_modules/@homotechsual/docusaurus-plugin-showcase/schema/plugins-preset/1.0.0.json
+id: easyops-cn.search
+name: Local Search
+description: A Docusaurus search plugin that generates a local full-text search index at build time. No external service required.
+website: https://github.com/easyops-cn/docusaurus-search-local
+source: https://github.com/easyops-cn/docusaurus-search-local
+author: easyops-cn
+tags:
+  - search
+  - favourite
+status: maintained
+npmPackages:
+  - "@easyops-cn/docusaurus-search-local"

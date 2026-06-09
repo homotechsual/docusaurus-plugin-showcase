@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=../../node_modules/@homotechsual/docusaurus-plugin-showcase/schema/plugins-preset/1.0.0.json
+id: infracost.plausible
+name: Plausible Analytics
+description: A Docusaurus plugin for Plausible Analytics. Privacy-friendly, lightweight analytics with no cookies.
+website: https://github.com/infracost/docusaurus-plugin-plausible
+source: https://github.com/infracost/docusaurus-plugin-plausible
+author: infracost
+tags:
+  - analytics
+  - favourite
+status: maintained
+npmPackages:
+  - docusaurus-plugin-plausible
