@@ -3,7 +3,6 @@ name: docfx
 description: DocFX is an open-source tool that generates documentation from source code and markdown files. It supports multiple programming languages and provides a customizable template system for creating professional-looking documentation websites.
 website: https://dotnet.github.io/docfx/
 source: https://github.com/dotnet/docfx
-preview: https://dotnet.github.io/docfx/img/social-card.png
 tags:
   - featured
   - open-source
