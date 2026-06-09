@@ -1,0 +1,94 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.cardImage {
+  overflow: hidden;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.cardTitle {
+  margin: 0;
+  flex: 1 1 auto;
+  font-size: 1rem;
+}
+
+.cardLink {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.cardLink:hover {
+  text-decoration: underline;
+}
+
+.cardBody {
+  font-size: 0.875rem;
+  flex: 1 1 auto;
+  margin-bottom: 0.25rem;
+}
+
+.cardAuthor {
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-600);
+  margin-bottom: 0.25rem;
+}
+
+.authorLabel {
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  margin-bottom: 0;
+}
+
+.statusLabel {
+  font-weight: 600;
+}
+
+.cardFooter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding-top: 0.5rem;
+  list-style: none;
+  margin: 0;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  border-radius: 12px;
+  padding: 2px 8px;
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+.tagColor {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.favouriteIcon {
+  color: var(--ifm-color-danger);
+}
+
+.sourceBtn {
+  margin-left: auto;
+}

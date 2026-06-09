@@ -25,3 +25,9 @@ declare module '@docusaurus/Translate' {
 
   export default function Translate<Str extends string>(props: TranslateProps<Str>): JSX.Element
 }
+
+declare module '@docusaurus/Link' {
+  import type { ComponentPropsWithoutRef } from 'react'
+  type LinkProps = ComponentPropsWithoutRef<'a'> & { href: string }
+  export default function Link(props: LinkProps): JSX.Element
+}
