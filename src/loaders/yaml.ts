@@ -3,7 +3,7 @@ import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { globSync } from 'glob'
 import yaml from 'js-yaml'
-import { Ajv } from 'ajv'
+import { Ajv2020 as Ajv } from 'ajv/dist/2020.js'
 import type { ShowcaseItem, PluginOptions } from '../core/types.js'
 
 type WarnFn = (message: string) => void

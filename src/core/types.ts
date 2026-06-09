@@ -8,6 +8,7 @@ export type TagDef = {
 export type StatusDef = {
   label: string
   description: string
+  color?: string | null
   icon?: string | null
 }
 

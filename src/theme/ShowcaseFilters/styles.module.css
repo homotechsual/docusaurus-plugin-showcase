@@ -22,12 +22,31 @@
 }
 
 .tagListItem {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
   white-space: nowrap;
   height: 32px;
   font-size: 0.8rem;
   display: flex;
   align-items: center;
+}
+
+.tagIcon {
+  display: inline-flex;
+  margin-left: 4px;
+  color: var(--showcase-tag-color);
+}
+
+.tagColorDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--showcase-tag-color);
+  display: inline-block;
+  margin-left: 4px;
+  flex-shrink: 0;
 }
 
 .searchContainer {

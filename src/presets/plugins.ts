@@ -77,16 +77,19 @@ export const pluginsPreset: Partial<PluginOptions> = {
     maintained: {
       label: 'Maintained',
       description: 'Compatible with the latest Docusaurus stable release.',
+      color: '#39ca30',
       icon: 'circle-check',
     },
     unmaintained: {
       label: 'Unmaintained',
       description: 'Not compatible with or not updated for the latest Docusaurus stable release.',
+      color: '#ca3c25',
       icon: 'circle-x',
     },
     unknown: {
       label: 'Unknown',
       description: 'Maintenance status could not be determined.',
+      color: '#f0ad4e',
       icon: 'circle-minus',
     },
   },

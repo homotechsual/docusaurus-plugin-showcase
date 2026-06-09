@@ -123,7 +123,9 @@ export default function ShowcaseFilters({ items, options, onFilter }: Props): Re
                   tag={key}
                   id={id}
                   label={tag.label}
-                  icon={Icon ? <Icon size={16} /> : <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: tag.color, display: 'inline-block', marginLeft: 4 }} />}
+                  icon={Icon
+                    ? <span className={styles.tagIcon} style={{ '--showcase-tag-color': tag.color } as React.CSSProperties}><Icon size={18} /></span>
+                    : <span className={styles.tagColorDot} style={{ '--showcase-tag-color': tag.color } as React.CSSProperties} />}
                 />
               </ShowcaseTooltip>
             </li>
@@ -142,7 +144,11 @@ export default function ShowcaseFilters({ items, options, onFilter }: Props): Re
                   status={key}
                   id={id}
                   label={status.label}
-                  icon={Icon ? <Icon size={16} /> : null}
+                  icon={Icon
+                    ? <span className={styles.tagIcon} style={{ '--showcase-tag-color': status.color ?? undefined } as React.CSSProperties}><Icon size={18} /></span>
+                    : status.color
+                      ? <span className={styles.tagColorDot} style={{ '--showcase-tag-color': status.color } as React.CSSProperties} />
+                      : null}
                 />
               </ShowcaseTooltip>
             </li>

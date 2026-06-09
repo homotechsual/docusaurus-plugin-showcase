@@ -53,6 +53,13 @@
   transition: opacity 150ms ease-in 50ms;
 }
 
+/* Dim inactive label: AND dimmed when OR is active */
+.checkboxLabel > :last-child { opacity: 0.35; }
+
+/* When AND is active: flip which label is dimmed */
+input:checked + .checkboxLabel > :first-child { opacity: 0.35; }
+input:checked + .checkboxLabel > :last-child { opacity: 1; }
+
 input:checked + .checkboxLabel::after {
   transform: translateX(calc(-1 * var(--toggle-border)));
 }

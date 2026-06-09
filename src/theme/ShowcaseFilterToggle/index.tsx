@@ -37,8 +37,8 @@ export default function ShowcaseFilterToggle(): React.JSX.Element {
         checked={isAnd}
       />
       <label htmlFor={id} className={clsx(styles.checkboxLabel, 'shadow--md')}>
-        <Translate id="showcase.filterToggle.or">OR</Translate>
-        <Translate id="showcase.filterToggle.and">AND</Translate>
+        <span><Translate id="showcase.filterToggle.or">OR</Translate></span>
+        <span><Translate id="showcase.filterToggle.and">AND</Translate></span>
       </label>
     </div>
   )
