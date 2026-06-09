@@ -53,9 +53,6 @@ export function validateOptions({
   if (!opts.tags || Object.keys(opts.tags).length === 0) {
     throw new Error('[docusaurus-plugin-showcase] The `tags` option must define at least one tag.')
   }
-  if (!opts.statuses || Object.keys(opts.statuses).length === 0) {
-    throw new Error('[docusaurus-plugin-showcase] The `statuses` option must define at least one status.')
-  }
 
   return {
     id: 'default',
@@ -63,7 +60,7 @@ export function validateOptions({
     ...opts,
     dataDir: opts.dataDir,
     tags: opts.tags,
-    statuses: opts.statuses,
+    statuses: opts.statuses ?? {},
   }
 }
 
