@@ -80,4 +80,18 @@ describe('loadShowcaseItems', () => {
     expect(item).toBeDefined()
     expect(item?._localImagePath).toBeUndefined()
   })
+
+  it('sets _localImagePath on items with co-located images even when using a strict schema', async () => {
+    const sitesSchemaPath = resolve(process.cwd(), 'schema/sites-preset/1.0.0.json')
+    const warnings: string[] = []
+    const items = await loadShowcaseItems(
+      fixturesDir,
+      { dataDir: '.', routeBasePath: 'showcase', tags: {}, statuses: {}, schemaPath: sitesSchemaPath },
+      (msg) => warnings.push(msg),
+    )
+    const item = items.find((i) => i.id === 'test.with-image') as Record<string, unknown> | undefined
+    expect(item).toBeDefined()
+    expect(typeof item?._localImagePath).toBe('string')
+    expect((item?._localImagePath as string)).toMatch(/test-with-image\.png$/)
+  })
 })

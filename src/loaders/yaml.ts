@@ -57,7 +57,14 @@ export async function loadShowcaseItems(
         delete item.title
       }
 
-      // Co-located image detection
+      if (validate && !validate(item)) {
+        const errors = ajv.errorsText(validate.errors)
+        warn(`[docusaurus-plugin-showcase] Validation failed for "${filePath}": ${errors} — item skipped.`)
+        continue
+      }
+
+      // Co-located image detection — AFTER validation so _localImagePath
+      // doesn't pollute strict schemas with additionalProperties: false
       const base = basename(filePath, extname(filePath))
       const imageExts = ['.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg']
       for (const ext of imageExts) {
@@ -66,12 +73,6 @@ export async function loadShowcaseItems(
           item._localImagePath = imagePath
           break
         }
-      }
-
-      if (validate && !validate(item)) {
-        const errors = ajv.errorsText(validate.errors)
-        warn(`[docusaurus-plugin-showcase] Validation failed for "${filePath}": ${errors} — item skipped.`)
-        continue
       }
 
       items.push(item as ShowcaseItem)
