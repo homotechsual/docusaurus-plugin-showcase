@@ -43,12 +43,13 @@ describe('generateShowcaseModule', () => {
     expect(result).toContain('"preview":null')
   })
 
-  it('emits require() for items with _localImagePath', () => {
+  it('emits require() with ES-module unwrapper for items with _localImagePath', () => {
     const item = makeItem() as ShowcaseItem & { _localImagePath: string }
     item._localImagePath = '/abs/path/to/image.png'
     const data: ShowcasePageData = { items: [item as ShowcaseItem], options: baseOptions }
     const result = generateShowcaseModule(data)
     expect(result).toContain('require("/abs/path/to/image.png")')
+    expect(result).toMatch(/function\(m\).*m\.default/)
   })
 
   it('strips _localImagePath from the serialised item', () => {
@@ -59,12 +60,23 @@ describe('generateShowcaseModule', () => {
     expect(result).not.toContain('_localImagePath')
   })
 
+  it('normalises Windows backslash paths in require()', () => {
+    const item = makeItem() as ShowcaseItem & { _localImagePath: string }
+    item._localImagePath = 'C:\\Users\\user\\project\\image.png'
+    const data: ShowcasePageData = { items: [item as ShowcaseItem], options: baseOptions }
+    const result = generateShowcaseModule(data)
+    expect(result).toContain('require("C:/Users/user/project/image.png")')
+    expect(result).not.toContain('\\\\')
+  })
+
   it('_localImagePath takes precedence over a preview URL', () => {
     const item = makeItem({ preview: 'https://example.com/preview.png' }) as ShowcaseItem & { _localImagePath: string }
     item._localImagePath = '/abs/path/to/local.png'
     const data: ShowcasePageData = { items: [item as ShowcaseItem], options: baseOptions }
     const result = generateShowcaseModule(data)
+    // The path is present inside the require() call
     expect(result).toContain('require("/abs/path/to/local.png")')
+    // The preview URL is not present (local image takes precedence)
     expect(result).not.toContain('https://example.com/preview.png')
   })
 })

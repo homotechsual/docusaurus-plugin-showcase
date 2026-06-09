@@ -3,7 +3,7 @@ import type { ShowcaseItem, ShowcasePageData } from './types.js'
 function serializeItem(item: ShowcaseItem): string {
   const { _localImagePath, preview, ...rest } = item as ShowcaseItem & { _localImagePath?: string }
   const previewJs = _localImagePath
-    ? `require(${JSON.stringify(_localImagePath)})`
+    ? `(function(m){return typeof m==='string'?m:(m&&m.default)||m})(require(${JSON.stringify(_localImagePath.replace(/\\/g, '/'))}))`
     : JSON.stringify(preview ?? null)
   const inner = JSON.stringify(rest).slice(1, -1)
   return inner ? `{"preview":${previewJs},${inner}}` : `{"preview":${previewJs}}`
