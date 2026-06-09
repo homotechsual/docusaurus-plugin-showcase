@@ -1,18 +1,25 @@
 {
   "version": "0.2",
-  "language": "en",
+  "language": "en-GB",
   "words": [
-    "docusaurus",
-    "homotechsual",
-    "showcaseable",
-    "swizzleable",
     "ajv",
     "clsx",
+    "docusaurus",
+    "favourite",
+    "homotechsual",
+    "Mikey",
+    "O'Toole",
     "popper",
     "popperjs",
     "rehype",
     "remark",
+    "showcaseable",
+    "swizzleable",
     "vitest"
   ],
-  "ignorePaths": ["node_modules", "lib", "*.lock"]
+  "ignorePaths": [
+    "node_modules",
+    "lib",
+    "*.lock"
+  ]
 }

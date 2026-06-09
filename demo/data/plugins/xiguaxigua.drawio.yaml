@@ -2,7 +2,7 @@
 id: xiguaxigua.drawio
 name: draw.io Diagrams
 description: Render draw.io (diagrams.net) files directly in your Docusaurus pages. Supports both embedded XML and external .drawio files.
-website: https://github.com/xiguaxigua/docusaurus-plugin-drawio
+website: https://xiguaxigua.com/docusaurus-plugin-drawio
 source: https://github.com/xiguaxigua/docusaurus-plugin-drawio
 author: xiguaxigua
 tags:

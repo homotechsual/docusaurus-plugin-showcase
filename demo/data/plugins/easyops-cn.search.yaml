@@ -2,7 +2,7 @@
 id: easyops-cn.search
 name: Local Search
 description: A Docusaurus search plugin that generates a local full-text search index at build time. No external service required.
-website: https://github.com/easyops-cn/docusaurus-search-local
+website: https://easyops-cn.github.io/docusaurus-search-local
 source: https://github.com/easyops-cn/docusaurus-search-local
 author: easyops-cn
 tags:

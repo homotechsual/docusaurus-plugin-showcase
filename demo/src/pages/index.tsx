@@ -11,14 +11,14 @@ function Hero() {
     <header className={clsx('hero hero--primary', styles.hero)}>
       <div className="container">
         <Heading as="h1" className="hero__title">
-          docusaurus-plugin-showcase
+          @homotechsual/docusaurus-plugin-showcase
         </Heading>
         <p className="hero__subtitle">
-          A swizzleable showcase / directory page plugin for Docusaurus, driven by YAML data files.
+          A swizzleable showcase / directory page plugin for Docusaurus v3, driven by YAML data files.
         </p>
         <div className={styles.buttons}>
           <Link className="button button--secondary button--lg" to="/plugins">
-            View Demo →
+            View Plugin Showcase Demo →
           </Link>
           <Link className="button button--outline button--secondary button--lg" to="/docs/intro">
             Read the Docs
@@ -37,7 +37,7 @@ type FeatureItem = {
 const features: FeatureItem[] = [
   {
     title: 'YAML-driven',
-    description: 'Each item in your showcase is a separate YAML file. No databases, no APIs — just files you commit alongside your site.',
+    description: 'Each item in your showcase is a separate YAML file. No databases, no APIs, just files you commit alongside your site.',
   },
   {
     title: 'Fully swizzleable',
@@ -45,15 +45,15 @@ const features: FeatureItem[] = [
   },
   {
     title: 'Filtering built in',
-    description: 'Tag-based and status-based filtering with AND/OR logic, plus free-text search — all URL-driven for deep linking.',
+    description: 'Tag-based and status-based filtering with AND/OR logic, plus free-text search, all URL-driven for deep linking.',
   },
   {
     title: 'Plugins preset',
-    description: 'Ship-ready preset for a Docusaurus plugin directory with 12 tags and 3 maintenance statuses, matching the community site.',
+    description: 'Ship-ready preset for a Docusaurus plugin directory with 12 tags and 3 maintenance statuses, matching the <a href="https://docusaurus.community">Docusaurus community site</a>.',
   },
 ]
 
-export default function Home(): JSX.Element {
+export default function Home(): React.JSX.Element {
   const { siteConfig } = useDocusaurusContext()
   return (
     <Layout title={siteConfig.title} description={siteConfig.tagline}>
@@ -66,7 +66,7 @@ export default function Home(): JSX.Element {
                 <div key={title} className={clsx('col col--3')}>
                   <div className="padding-horiz--md">
                     <Heading as="h3">{title}</Heading>
-                    <p>{description}</p>
+                    <p dangerouslySetInnerHTML={{ __html: description }} />
                   </div>
                 </div>
               ))}

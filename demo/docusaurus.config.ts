@@ -2,15 +2,18 @@ import { themes as prismThemes } from 'prism-react-renderer'
 import type { Config } from '@docusaurus/types'
 import type * as Preset from '@docusaurus/preset-classic'
 import { pluginsPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
+import { sitesPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
+
+// Import the Docusaurus version.
+import { DOCUSAURUS_VERSION } from '@docusaurus/utils'
 
 const config: Config = {
-  title: 'Docusaurus Plugin Showcase',
+  title: 'Docusaurus Showcase Plugin',
   tagline: 'A swizzleable showcase page plugin for Docusaurus',
   favicon: 'img/favicon.ico',
-  url: 'https://docusaurus-plugin-showcase.pages.dev',
+  url: 'https://showcase.docusaurus.homotechsual.dev',
   baseUrl: '/',
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -22,6 +25,16 @@ const config: Config = {
         ...pluginsPreset,
         dataDir: 'data/plugins',
         routeBasePath: 'plugins',
+        submitUrl: 'https://github.com/homotechsual/docusaurus-plugin-showcase/issues',
+      },
+    ],
+    [
+      '@homotechsual/docusaurus-plugin-showcase',
+      {
+        id: 'sites',
+        ...sitesPreset,
+        dataDir: 'data/sites',
+        routeBasePath: 'sites',
         submitUrl: 'https://github.com/homotechsual/docusaurus-plugin-showcase/issues',
       },
     ],
@@ -42,14 +55,17 @@ const config: Config = {
   ],
   themeConfig: {
     navbar: {
-      title: 'Plugin Showcase',
+      title: 'Showcase Plugin',
       items: [
-        { to: '/plugins', label: 'Demo', position: 'left' },
+        { to: '/plugins', label: 'Plugin Preset Demo', position: 'left' },
+        { to: '/sites', label: 'Sites Preset Demo', position: 'left' },
         { type: 'docSidebar', sidebarId: 'docs', position: 'left', label: 'Docs' },
         {
-          href: 'https://github.com/homotechsual/docusaurus-plugin-showcase',
+          to: 'https://github.com/homotechsual/docusaurus-plugin-showcase',
           label: 'GitHub',
           position: 'right',
+          target: '_blank',
+          className: 'github-link',
         },
       ],
     },
@@ -59,7 +75,8 @@ const config: Config = {
         {
           title: 'Plugin',
           items: [
-            { label: 'Demo', to: '/plugins' },
+            { label: 'Plugins Preset Demo', to: '/plugins' },
+            { label: 'Sites Preset Demo', to: '/sites' },
             { label: 'Documentation', to: '/docs/intro' },
           ],
         },
@@ -71,11 +88,25 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Mikey O'Toole. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Mikey O'Toole.<br />Built with <a href="https://docusaurus.io">Docusaurus v${DOCUSAURUS_VERSION}</a>.<br /><span class="designedBy">Designed with <svg xmlns="http://www.w3.org/2000/svg" class="heart" width="24" height="24" viewBox="0 0 24 24"><path d="M14 20.408c-.492.308-.903.546-1.192.709-.153.086-.308.17-.463.252h-.002a.75.75 0 01-.686 0 16.709 16.709 0 01-.465-.252 31.147 31.147 0 01-4.803-3.34C3.8 15.572 1 12.331 1 8.513 1 5.052 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262A31.146 31.146 0 0114 20.408z"/></svg>
+        by <a href="https://homotechsual.dev">homotechsual</a></span>`,
     },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+    },
+    markdown: {
+      hooks: {
+        onBrokenMarkdownLinks: 'warn',
+      }
+    },
+    future: {
+      faster: true,
+      v4: true,
+    },
+    storage: {
+      type: 'localStorage',
+      namespace: true,
     },
   } satisfies Preset.ThemeConfig,
 }

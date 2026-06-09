@@ -1,0 +1,5 @@
+{
+    "npmSafetyGuard.typosquatWhitelist": [
+        "react-popper"
+    ]
+}

@@ -2,7 +2,7 @@
 id: docusaurus.docs
 name: Docs
 description: The official Docusaurus docs plugin. Provides the core documentation functionality including versioning, sidebar generation, and MDX support.
-website: https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs
+website: https://docusaurus.io/docs/docs-introduction
 source: https://github.com/facebook/docusaurus/tree/main/packages/docusaurus-plugin-content-docs
 author: docusaurus
 tags:

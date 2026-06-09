@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=../../node_modules/@homotechsual/docusaurus-plugin-showcase/schema/plugins-preset/1.0.0.json
+id: homotechsual.faqs
+name: FAQs
+description: A Docusaurus plugin for FAQs. Easily create and manage frequently asked questions on your Docusaurus site.
+website: https://github.com/homotechsual/docusaurus-plugin-faqs
+source: https://github.com/homotechsual/docusaurus-plugin-faqs
+author: homotechsual
+tags:
+  - content
+  - favourite
+status: maintained
+npmPackages:
+  - "@homotechsual/docusaurus-plugin-faqs"
