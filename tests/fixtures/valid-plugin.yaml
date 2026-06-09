@@ -1,0 +1,12 @@
+id: test.my-plugin
+name: My Plugin
+description: A test Docusaurus plugin.
+website: https://github.com/test/my-plugin
+source: https://github.com/test/my-plugin
+author: test
+tags:
+  - utility
+status: maintained
+npmPackages:
+  - my-plugin
+minimumVersion: "3.0.0"

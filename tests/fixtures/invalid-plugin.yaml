@@ -1,0 +1,4 @@
+# Missing required field 'name'
+id: test.bad-plugin
+description: Bad plugin.
+website: not-a-url
