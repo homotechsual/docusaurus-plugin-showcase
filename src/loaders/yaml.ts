@@ -34,6 +34,8 @@ export async function loadShowcaseItems(
     } catch (err) {
       warn(`[docusaurus-plugin-showcase] Could not load schema from "${schemaPath}": ${String(err)}`)
     }
+  } else {
+    warn(`[docusaurus-plugin-showcase] Schema file not found at "${schemaPath}" — validation skipped.`)
   }
 
   const yamlFiles = globSync('**/*.yaml', { cwd: dataDir, absolute: true })
@@ -42,6 +44,11 @@ export async function loadShowcaseItems(
   for (const filePath of yamlFiles) {
     try {
       const raw = yaml.load(readFileSync(filePath, 'utf-8'))
+
+      if (typeof raw !== 'object' || raw === null) {
+        warn(`[docusaurus-plugin-showcase] Expected object in "${filePath}", got ${typeof raw} — item skipped.`)
+        continue
+      }
 
       if (validate && !validate(raw)) {
         const errors = ajv.errorsText(validate.errors)
