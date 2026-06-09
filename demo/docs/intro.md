@@ -1,98 +1,63 @@
 ---
 sidebar_position: 1
-sidebar_label: Introduction
+sidebar_label: Getting Started
 ---
 
-# @homotechsual/docusaurus-plugin-showcase
+# Getting Started
 
-A Docusaurus plugin for building swizzleable showcase / directory pages from YAML data files.
+`@homotechsual/docusaurus-plugin-showcase` builds swizzleable showcase and directory pages from YAML data files. Each item lives in its own `.yaml` file; the plugin loads them, validates them against an optional JSON Schema, and renders a filterable, searchable page.
 
 ## Installation
 
 ```bash
 npm install @homotechsual/docusaurus-plugin-showcase
+# or
+yarn add @homotechsual/docusaurus-plugin-showcase
 ```
 
-## Quick start (plugins directory preset)
+## Choosing an approach
+
+The plugin ships two ready-made presets for common use cases, and supports fully custom configuration for everything else.
+
+| Approach | Best for |
+| --- | --- |
+| [Plugins preset](./plugins-preset) | A Docusaurus plugin directory - 12 category tags, 3 maintenance statuses. |
+| [Sites preset](./sites-preset) | A site showcase, compatible with `facebook/docusaurus` data files. |
+| [Custom showcase](./custom-showcase) | Any other kind of directory: themes, resources, team members, etc. |
+
+All three approaches use the same YAML data model and render identical page components. The only difference is which tags, statuses, and schema validation are pre-configured.
+
+## Using the plugin more than once
+
+Register the plugin multiple times to add multiple showcase pages. Each instance beyond the first must have a unique `id`:
 
 ```ts
 // docusaurus.config.ts
 import { pluginsPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
+import { sitesPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
 
 export default {
   plugins: [
     ['@homotechsual/docusaurus-plugin-showcase', {
       ...pluginsPreset,
-      dataDir: 'data/plugins',       // directory of .yaml files relative to site root
-      routeBasePath: 'plugins',      // page available at /plugins
-      submitUrl: 'https://github.com/your-org/your-repo/discussions/1',
+      dataDir: 'data/plugins',
+      routeBasePath: 'plugins',
+    }],
+    ['@homotechsual/docusaurus-plugin-showcase', {
+      id: 'sites',                 // required for the second instance
+      ...sitesPreset,
+      dataDir: 'data/sites',
+      routeBasePath: 'sites',
     }],
   ],
 }
 ```
 
-## YAML file format (plugins preset)
+## Next steps
 
-Each plugin is a separate `.yaml` file. Add the language-server comment for autocomplete:
-
-```yaml
-# yaml-language-server: $schema=../../../node_modules/@homotechsual/docusaurus-plugin-showcase/schema/plugins-preset/1.0.0.json
-id: author.plugin-name
-name: My Plugin
-description: A useful Docusaurus plugin.
-website: https://github.com/author/plugin-name
-source: https://github.com/author/plugin-name
-author: author
-tags:
-  - utility
-status: maintained
-npmPackages:
-  - plugin-name
-```
-
-## Custom configuration
-
-Use core types to define your own tags and statuses for any showcase use case:
-
-```ts
-import type { PluginOptions } from '@homotechsual/docusaurus-plugin-showcase'
-
-const options: PluginOptions = {
-  dataDir: 'data/showcase',
-  routeBasePath: 'showcase',
-  pageTitle: 'Community Showcase',
-  pageDescription: 'Sites built with our framework.',
-  tags: {
-    featured: { label: 'Featured', description: 'Hand-picked featured sites.', color: '#e9669e' },
-    community: { label: 'Community', description: 'Built by the community.', color: '#3ecc5f' },
-  },
-  statuses: {
-    active: { label: 'Active', description: 'Actively maintained.', icon: 'circle-check' },
-  },
-  favouriteTag: 'featured',
-}
-```
-
-## Swizzling components
-
-All theme components are swizzleable:
-
-```bash
-npx docusaurus swizzle @homotechsual/docusaurus-plugin-showcase ShowcaseCard
-```
-
-Swizzleable components: `ShowcasePage` (unsafe/wrap), `ShowcaseCard` (safe), `ShowcaseFilters` (safe), `ShowcaseFilterToggle` (safe), `ShowcaseTagSelect` (unsafe/wrap), `ShowcaseStatusSelect` (unsafe/wrap), `ShowcaseTooltip` (safe).
-
-## Initial publish
-
-Before OIDC trusted publishing works, publish once manually to claim the package name:
-
-```bash
-npm publish --access public
-```
-
-Then configure the trust policy on npmjs.org: package → Settings → Publishing → Granular access tokens → add the GitHub repo + `npm` environment.
-
-## Licence
-
-Apache-2.0
+- [Plugins preset](./plugins-preset) - quick start and YAML format
+- [Sites preset](./sites-preset) - quick start and YAML format
+- [Custom showcase](./custom-showcase) - defining your own tags and statuses
+- [Configuration reference](./configuration) - every option explained
+- [Co-located images](./co-located-images) - serving preview images through the bundler
+- [Swizzling](./swizzling) - customising the page components

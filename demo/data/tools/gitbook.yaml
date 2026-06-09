@@ -1,0 +1,8 @@
+id: gitbook
+name: GitBook
+description: A modern documentation platform where teams can document everything, from products to internal knowledge bases.
+website: https://www.gitbook.com
+tags:
+  - paid
+  - markdown
+status: active

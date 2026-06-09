@@ -1,0 +1,10 @@
+id: mkdocs
+name: MkDocs
+description: Project documentation with Markdown. Fast, simple, and downright gorgeous static site generator geared towards building project documentation.
+website: https://www.mkdocs.org
+source: https://github.com/mkdocs/mkdocs
+tags:
+  - open-source
+  - python
+  - markdown
+status: active

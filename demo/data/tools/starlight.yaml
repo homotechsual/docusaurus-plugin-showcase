@@ -1,0 +1,10 @@
+id: starlight
+name: Starlight
+description: Build beautiful, accessible, high-performance documentation websites with Astro. Full-featured docs theme built on Astro.
+website: https://starlight.astro.build
+source: https://github.com/withastro/starlight
+tags:
+  - open-source
+  - astro
+  - markdown
+status: active

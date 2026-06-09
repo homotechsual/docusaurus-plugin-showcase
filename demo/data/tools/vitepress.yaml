@@ -1,0 +1,12 @@
+id: vitepress
+name: VitePress
+description: Vite & Vue powered static site generator. Simple, powerful, and performant — the documentation tool you always wanted.
+website: https://vitepress.dev
+source: https://github.com/vuejs/vitepress
+preview: https://vitepress.dev/vitepress-og.jpg
+tags:
+  - featured
+  - open-source
+  - vue
+  - markdown
+status: active

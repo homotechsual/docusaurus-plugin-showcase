@@ -1,0 +1,10 @@
+id: nextra
+name: Nextra
+description: Simple, powerful and flexible site generation framework with everything you love from Next.js. Built for documentation and blogs.
+website: https://nextra.site
+source: https://github.com/shuding/nextra
+tags:
+  - open-source
+  - react
+  - markdown
+status: active

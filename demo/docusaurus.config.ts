@@ -38,6 +38,81 @@ const config: Config = {
         submitUrl: 'https://github.com/homotechsual/docusaurus-plugin-showcase/issues',
       },
     ],
+    [
+      '@homotechsual/docusaurus-plugin-showcase',
+      {
+        id: 'tools',
+        dataDir: 'data/tools',
+        routeBasePath: 'tools',
+        pageTitle: 'Documentation Frameworks',
+        pageDescription: 'A showcase of frameworks and platforms for building documentation sites.',
+        favouriteTag: 'featured',
+        submitUrl: 'https://github.com/homotechsual/docusaurus-plugin-showcase/issues',
+        tags: {
+          featured: {
+            label: 'Featured',
+            description: 'Our recommended documentation frameworks.',
+            color: '#e9669e',
+            icon: 'heart',
+          },
+          'open-source': {
+            label: 'Open Source',
+            description: 'Free and open-source tools you can self-host or contribute to.',
+            color: '#39ca30',
+          },
+          paid: {
+            label: 'Paid / Freemium',
+            description: 'Commercial or freemium platforms.',
+            color: '#e6af2e',
+          },
+          react: {
+            label: 'React',
+            description: 'Built with or designed for React.',
+            color: '#61dafb',
+          },
+          vue: {
+            label: 'Vue',
+            description: 'Built with or designed for Vue.',
+            color: '#42b883',
+          },
+          python: {
+            label: 'Python',
+            description: 'Built with Python.',
+            color: '#3776ab',
+          },
+          astro: {
+            label: 'Astro',
+            description: 'Built with Astro.',
+            color: '#ff5d01',
+          },
+          markdown: {
+            label: 'Markdown',
+            description: 'Primarily uses Markdown for content authoring.',
+            color: '#083fa1',
+          },
+        },
+        statuses: {
+          active: {
+            label: 'Active',
+            description: 'Actively maintained and developed.',
+            color: '#39ca30',
+            icon: 'circle-check',
+          },
+          beta: {
+            label: 'Beta',
+            description: 'Currently in beta or early access.',
+            color: '#e6af2e',
+            icon: 'circle-minus',
+          },
+          archived: {
+            label: 'Archived',
+            description: 'No longer actively maintained.',
+            color: '#ca3c25',
+            icon: 'circle-x',
+          },
+        },
+      },
+    ],
   ],
   presets: [
     [
@@ -59,6 +134,7 @@ const config: Config = {
       items: [
         { to: '/plugins', label: 'Plugin Preset Demo', position: 'left' },
         { to: '/sites', label: 'Sites Preset Demo', position: 'left' },
+        { to: '/tools', label: 'Custom Showcase Demo', position: 'left' },
         { type: 'docSidebar', sidebarId: 'docs', position: 'left', label: 'Docs' },
         {
           to: 'https://github.com/homotechsual/docusaurus-plugin-showcase',
@@ -77,6 +153,7 @@ const config: Config = {
           items: [
             { label: 'Plugins Preset Demo', to: '/plugins' },
             { label: 'Sites Preset Demo', to: '/sites' },
+            { label: 'Custom Showcase Demo', to: '/tools' },
             { label: 'Documentation', to: '/docs/intro' },
           ],
         },

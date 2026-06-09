@@ -1,0 +1,9 @@
+id: sphinx
+name: Sphinx
+description: The industry standard for Python project documentation. Intelligent cross-referencing, automatic indices, and a rich extension ecosystem.
+website: https://www.sphinx-doc.org
+source: https://github.com/sphinx-doc/sphinx
+tags:
+  - open-source
+  - python
+status: active
