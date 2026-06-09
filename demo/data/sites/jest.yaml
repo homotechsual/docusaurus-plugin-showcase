@@ -3,7 +3,6 @@ title: Jest
 description: A delightful JavaScript Testing Framework with a focus on simplicity.
 website: https://jestjs.io/
 source: https://github.com/facebook/jest/tree/master/website
-preview: https://raw.githubusercontent.com/facebook/docusaurus/main/website/src/data/showcase/jest.png
 tags:
   - favorite
   - opensource

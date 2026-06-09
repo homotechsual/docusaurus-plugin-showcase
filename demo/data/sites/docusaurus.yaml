@@ -1,0 +1,9 @@
+id: docusauraus
+title: Docusaurus
+description: Docusaurus is a modern static website generator that helps you easily build and maintain open source project websites.
+website: https://docusaurus.io/
+source: https://github.com/facebook/docusaurus
+preview: https://raw.githubusercontent.com/facebook/docusaurus/main/website/src/data/showcase/docusaurus.png
+tags:
+  - favorite
+  - opensource
