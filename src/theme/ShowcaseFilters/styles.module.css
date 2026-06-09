@@ -1,0 +1,43 @@
+.filtersRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.filtersRowLeft {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+  margin: 0 0 0.5rem;
+}
+
+.tagListItem {
+  user-select: none;
+  white-space: nowrap;
+  height: 32px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.searchContainer {
+  margin-left: auto;
+}
+
+.searchContainer input {
+  height: 30px;
+  border-radius: 15px;
+  padding: 0 10px;
+  border: 1px solid gray;
+  width: 15rem;
+}

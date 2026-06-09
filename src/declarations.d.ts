@@ -7,6 +7,10 @@ declare module '@docusaurus/router' {
   export { useHistory, useLocation, Redirect, matchPath } from 'react-router-dom'
 }
 
+declare module '@docusaurus/theme-common' {
+  export function usePluralForm(): { selectMessage: (count: number, pluralForm: string) => string }
+}
+
 declare module '@docusaurus/Translate' {
   import type { ReactNode } from 'react'
 
