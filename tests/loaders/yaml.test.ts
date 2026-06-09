@@ -42,4 +42,17 @@ describe('loadShowcaseItems', () => {
     expect(items).toEqual([])
     expect(warnings.length).toBeGreaterThan(0)
   })
+
+  it('maps title to name when name is absent', async () => {
+    const warnings: string[] = []
+    const items = await loadShowcaseItems(
+      fixturesDir,
+      { dataDir: '.', routeBasePath: 'showcase', tags: {}, statuses: {} },
+      (msg) => warnings.push(msg),
+    )
+    const item = items.find((i) => i.id === 'test.site-with-title')
+    expect(item).toBeDefined()
+    expect(item?.name).toBe('Site With Title')
+    expect((item as Record<string, unknown>)['title']).toBeUndefined()
+  })
 })

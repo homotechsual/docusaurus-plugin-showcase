@@ -1,10 +1,15 @@
 import { readFileSync, existsSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { resolve, join, dirname, basename, extname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { globSync } from 'glob'
 import yaml from 'js-yaml'
 import { Ajv2020 as Ajv } from 'ajv/dist/2020.js'
+import addFormats from 'ajv-formats'
 import type { ShowcaseItem, PluginOptions } from '../core/types.js'
+
+// ajv-formats ships as CJS; handle both direct and .default export shapes
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const applyFormats = (addFormats as any).default ?? addFormats
 
 type WarnFn = (message: string) => void
 
@@ -25,6 +30,7 @@ export async function loadShowcaseItems(
     fileURLToPath(new URL('../../schema/showcase/1.0.0.json', import.meta.url))
 
   const ajv = new Ajv({ allErrors: true, strict: false })
+  applyFormats(ajv)
   let validate: ReturnType<typeof ajv.compile> | null = null
 
   if (existsSync(schemaPath)) {
@@ -50,13 +56,20 @@ export async function loadShowcaseItems(
         continue
       }
 
-      if (validate && !validate(raw)) {
+      // title → name alias (compatible with Docusaurus site showcase format)
+      const item = raw as Record<string, unknown>
+      if (!item.name && item.title) {
+        item.name = item.title
+        delete item.title
+      }
+
+      if (validate && !validate(item)) {
         const errors = ajv.errorsText(validate.errors)
         warn(`[docusaurus-plugin-showcase] Validation failed for "${filePath}": ${errors} — item skipped.`)
         continue
       }
 
-      items.push(raw as ShowcaseItem)
+      items.push(item as ShowcaseItem)
     } catch (err) {
       warn(`[docusaurus-plugin-showcase] Failed to parse "${filePath}": ${String(err)} — item skipped.`)
     }

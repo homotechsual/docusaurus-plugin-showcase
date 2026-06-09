@@ -1,0 +1,5 @@
+id: test.site-with-title
+title: Site With Title
+description: A test site using title instead of name.
+website: https://example.com/site-with-title
+tags: []
