@@ -182,8 +182,13 @@ const config: Config = {
         by <a href="https://homotechsual.dev">homotechsual</a></span>`,
     },
     prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      theme: prismThemes.oneLight,
+      darkTheme: prismThemes.oneDark,
+    },
+    colorMode: {
+      defaultMode: 'dark',
+      disableSwitch: false,
+      respectPrefersColorScheme: true,
     },
     markdown: {
       hooks: {
