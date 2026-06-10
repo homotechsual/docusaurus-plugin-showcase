@@ -244,18 +244,19 @@ export default function PlaygroundPage() {
         <div className={styles.grid}>
           {/* Controls */}
           <div>
-            <div className={`pills ${styles.modeToggle}`}>
+            <ul className={`pills ${styles.modeToggle}`}>
               {(['preset', 'custom'] as const).map((m) => (
-                <button
+                <li
                   key={m}
-                  type="button"
                   className={`pills__item${state.mode === m ? ' pills__item--active' : ''}`}
                   onClick={() => switchMode(m)}
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === 'Enter' && switchMode(m)}
                 >
                   {m === 'preset' ? 'Preset' : 'Custom'}
-                </button>
+                </li>
               ))}
-            </div>
+            </ul>
 
             {state.mode === 'preset' && (
               <div className={styles.field}>
