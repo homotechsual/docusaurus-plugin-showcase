@@ -149,6 +149,7 @@ const config: Config = {
         { to: '/sites', label: 'Sites Preset Demo', position: 'left' },
         { to: '/tools', label: 'Custom Showcase Demo', position: 'left' },
         { type: 'docSidebar', sidebarId: 'docs', position: 'left', label: 'Docs' },
+        { to: '/playground', label: 'Playground', position: 'left' },
         {
           to: 'https://github.com/homotechsual/docusaurus-plugin-showcase',
           label: 'GitHub',
@@ -168,6 +169,7 @@ const config: Config = {
             { label: 'Sites Preset Demo', to: '/sites' },
             { label: 'Custom Showcase Demo', to: '/tools' },
             { label: 'Documentation', to: '/docs/intro' },
+            { label: 'Config Playground', to: '/playground' },
           ],
         },
         {
