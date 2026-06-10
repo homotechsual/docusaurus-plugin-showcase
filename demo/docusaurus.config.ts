@@ -7,6 +7,11 @@ import { sitesPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
 // Import the Docusaurus version.
 import { DOCUSAURUS_VERSION } from '@docusaurus/utils'
 
+// Common config for all showcase instances, can be overridden by individual instances below
+const commonShowcaseConfig = {
+  screenshotUrl: 'https://screengrabber.tools.homotechsual.dev/{url}/opengraph/_width:640?format=jpeg',
+}
+
 const config: Config = {
   title: 'Docusaurus Showcase Plugin',
   tagline: 'A swizzleable showcase page plugin for Docusaurus',
@@ -23,6 +28,7 @@ const config: Config = {
       '@homotechsual/docusaurus-plugin-showcase',
       {
         ...pluginsPreset,
+        ...commonShowcaseConfig,
         dataDir: 'data/plugins',
         routeBasePath: 'plugins',
         submitUrl: 'https://github.com/homotechsual/docusaurus-plugin-showcase/issues',
@@ -33,6 +39,7 @@ const config: Config = {
       {
         id: 'sites',
         ...sitesPreset,
+        ...commonShowcaseConfig,
         dataDir: 'data/sites',
         routeBasePath: 'sites',
         submitUrl: 'https://github.com/homotechsual/docusaurus-plugin-showcase/issues',
@@ -42,6 +49,7 @@ const config: Config = {
       '@homotechsual/docusaurus-plugin-showcase',
       {
         id: 'tools',
+        ...commonShowcaseConfig,
         dataDir: 'data/tools',
         routeBasePath: 'tools',
         pageTitle: 'Documentation Frameworks',

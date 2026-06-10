@@ -1,7 +1,8 @@
----
-sidebar_position: 5
-sidebar_label: Configuration Reference
----
+***
+
+sidebar\_position: 5
+sidebar\_label: Configuration Reference
+---------------------------------------
 
 # Configuration reference
 
@@ -20,6 +21,20 @@ sidebar_label: Configuration Reference
 | `pageDescription` | `string` | | Sub-heading shown below the page title. Defaults to `"A community showcase."`. |
 | `submitUrl` | `string` | | URL for the "Add an item" call-to-action button. The button is hidden when this is omitted. |
 | `screenshotUrl` | `string` | | URL template used to auto-generate a preview image for items that have no `preview` field. Use `{url}` for the percent-encoded site URL or `{rawUrl}` for the raw URL. Example: `https://screenshot.example.com/{url}/thumb`. When omitted, items with no `preview` render without an image. |
+
+### ScreenGrabber recommended settings
+
+If you are using [ScreenGrabber](https://docs.homotechsual.dev/tools/screengrabber) as your screenshot service, the following `screenshotUrl` value is recommended:
+
+```text
+https://screengrabber.example.wales/{url}/opengraph/_width:640?format=jpeg
+```
+
+* **`opengraph`** — captures at a 1200×630 viewport, which renders the desktop layout of most sites and produces a landscape image that suits the card's aspect ratio.
+* **`_width:640`** — resizes the output to 640px wide, retina-crisp at typical card display widths (~350px).
+* **`?format=jpeg`** — delivers smaller files than PNG; sufficient quality for site previews.
+
+Replace `screengrabber.example.wales` with your ScreenGrabber instance hostname.
 
 ## TagDef
 
