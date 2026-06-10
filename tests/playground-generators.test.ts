@@ -4,8 +4,8 @@ import {
   generateJsConfig,
   generateSampleYaml,
   generateSchema,
-} from '../demo/src/pages/playground-generators'
-import type { PlaygroundState } from '../demo/src/pages/playground-generators'
+} from '../demo/src/pages/_playground-generators'
+import type { PlaygroundState } from '../demo/src/pages/_playground-generators'
 
 const presetPluginsState: PlaygroundState = {
   mode: 'preset',
