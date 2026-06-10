@@ -1,0 +1,73 @@
+<h2>How much of the plugin config should the playground cover?</h2>
+<p class="subtitle">The showcase plugin's config has two tiers: simple scalar options, and complex tag/status object definitions. How deep should the playground go?</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="font-family:monospace;font-size:11px;padding:12px;background:#1e1e1e;color:#d4d4d4;border-radius:6px;text-align:left;line-height:1.6">
+        <span style="color:#9cdcfe">plugins</span><span>: [</span><br>
+        <span style="color:#ce9178">&nbsp;&nbsp;'@homotechsual/docusaurus-plugin-showcase'</span><span>,</span><br>
+        <span style="color:#9cdcfe">&nbsp;&nbsp;pluginsPreset</span><span style="color:#d4d4d4">(</span><span>&#123;</span><br>
+        <span style="color:#9cdcfe">&nbsp;&nbsp;&nbsp;&nbsp;routeBasePath</span><span>: </span><span style="color:#ce9178">'plugins'</span><span>,</span><br>
+        <span style="color:#9cdcfe">&nbsp;&nbsp;&nbsp;&nbsp;dataDir</span><span>: </span><span style="color:#ce9178">'./data/plugins'</span><span>,</span><br>
+        <span style="color:#9cdcfe">&nbsp;&nbsp;&nbsp;&nbsp;pageTitle</span><span>: </span><span style="color:#ce9178">'Plugin Directory'</span><span>,</span><br>
+        <span style="color:#9cdcfe">&nbsp;&nbsp;&nbsp;&nbsp;screenshotUrl</span><span>: </span><span style="color:#ce9178">'https://...'</span><br>
+        <span>&nbsp;&nbsp;&#125;)</span><br>
+        <span>]</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Preset-focused</h3>
+      <p>Users pick <strong>pluginsPreset</strong> or <strong>sitesPreset</strong> (or neither), then configure the scalar options: <code>routeBasePath</code>, <code>dataDir</code>, <code>pageTitle</code>, <code>pageDescription</code>, <code>submitUrl</code>, <code>screenshotUrl</code>, <code>favouriteTag</code>. Tag and status definitions come pre-baked from the chosen preset.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Covers the 90% case cleanly</li><li>Simple, readable UI</li><li>Generated config is concise</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Doesn't help custom-tags users</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="font-family:monospace;font-size:11px;padding:12px;background:#1e1e1e;color:#d4d4d4;border-radius:6px;text-align:left;line-height:1.6">
+        <span style="color:#9cdcfe">plugins</span><span>: [[</span><span style="color:#ce9178">'showcase'</span><span>, &#123;</span><br>
+        <span style="color:#9cdcfe">&nbsp;&nbsp;routeBasePath</span><span>: </span><span style="color:#ce9178">'tools'</span><span>,</span><br>
+        <span style="color:#9cdcfe">&nbsp;&nbsp;tags</span><span>: &#123;</span><br>
+        <span style="color:#9cdcfe">&nbsp;&nbsp;&nbsp;&nbsp;react</span><span>: &#123;</span><br>
+        <span style="color:#9cdcfe">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label</span><span>: </span><span style="color:#ce9178">'React'</span><span>,</span><br>
+        <span style="color:#9cdcfe">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;description</span><span>: </span><span style="color:#ce9178">'React-based'</span><span>,</span><br>
+        <span style="color:#9cdcfe">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color</span><span>: </span><span style="color:#ce9178">'#61dafb'</span><br>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&#125;</span><br>
+        <span>&nbsp;&nbsp;&#125;,</span><br>
+        <span style="color:#9cdcfe">&nbsp;&nbsp;dataDir</span><span>: </span><span style="color:#ce9178">'./data/tools'</span><br>
+        <span>&#125;]]</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Full options</h3>
+      <p>Covers everything: scalar options <strong>plus</strong> a dynamic tag/status builder where users can add, name, colour, and icon each tag. Generates the full raw plugin config including the <code>tags</code> object.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Useful even without presets</li><li>Shows all possibilities</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Complex UI (add/remove rows)</li><li>Colour picker needed</li><li>Much larger generated output</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="font-family:monospace;font-size:11px;padding:12px;background:#1e1e1e;color:#d4d4d4;border-radius:6px;text-align:left;line-height:1.6">
+        <div style="color:#6a9955;margin-bottom:4px">// Preset mode</div>
+        <span style="color:#9cdcfe">...pluginsPreset</span><span>(&#123; </span><span style="color:#9cdcfe">routeBasePath</span><span>: </span><span style="color:#ce9178">'plugins'</span><span> &#125;),</span><br><br>
+        <div style="color:#6a9955;margin-bottom:4px">// Custom mode (advanced)</div>
+        <span style="color:#9cdcfe">tags</span><span>: &#123; </span><span style="color:#9cdcfe">react</span><span>: &#123; </span><span style="color:#9cdcfe">label</span><span>: </span><span style="color:#ce9178">'React'</span><span>, </span><span style="color:#9cdcfe">color</span><span>: </span><span style="color:#ce9178">'#61dafb'</span><span> &#125; &#125;</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Preset + Custom toggle</h3>
+      <p>A toggle switches between <strong>Preset mode</strong> (simple, pick pluginsPreset or sitesPreset + scalar options) and <strong>Custom mode</strong> (advanced, exposes the full tag/status builder). Both generate appropriate output for their mode.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Best of both worlds</li><li>Progressive disclosure</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>More complex to build</li><li>Two modes to maintain</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
