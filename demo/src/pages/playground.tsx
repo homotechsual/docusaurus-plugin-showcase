@@ -8,8 +8,8 @@ import {
   generateJsConfig,
   generateSampleYaml,
   generateSchema,
-} from './_playground-generators'
-import type { PlaygroundState, TagEntry, StatusEntry, IconKey, CustomModeState } from './_playground-generators'
+} from '../lib/playground-generators'
+import type { PlaygroundState, TagEntry, StatusEntry, IconKey, CustomModeState } from '../lib/playground-generators'
 
 // ── Tag keys for favouriteTag <select> in preset mode ──────────────────────
 const PLUGINS_PRESET_TAG_KEYS = [
