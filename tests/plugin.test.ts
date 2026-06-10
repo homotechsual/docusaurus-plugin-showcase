@@ -38,4 +38,16 @@ describe('validateOptions', () => {
     const result = validateOptions({ options: { ...baseOptions, statuses } })
     expect(result.statuses).toEqual(statuses)
   })
+
+  it('defaults screenshotUrl to null when absent', () => {
+    const result = validateOptions({ options: baseOptions })
+    expect(result.screenshotUrl).toBeNull()
+  })
+
+  it('preserves provided screenshotUrl', () => {
+    const result = validateOptions({
+      options: { ...baseOptions, screenshotUrl: 'https://example.com/{url}/thumb' },
+    })
+    expect(result.screenshotUrl).toBe('https://example.com/{url}/thumb')
+  })
 })

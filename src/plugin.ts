@@ -62,6 +62,7 @@ export function validateOptions({
     dataDir: opts.dataDir,
     tags: opts.tags,
     statuses: opts.statuses ?? {},
+    screenshotUrl: opts.screenshotUrl ?? null,
   }
 }
 

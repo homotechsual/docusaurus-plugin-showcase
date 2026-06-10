@@ -38,6 +38,7 @@ export type PluginOptions = {
   pageDescription?: string | null
   submitUrl?: string | null
   schemaPath?: string | null
+  screenshotUrl?: string | null
 }
 
 export type ShowcasePageData = {
