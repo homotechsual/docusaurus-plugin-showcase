@@ -15,13 +15,19 @@ export function PlaygroundOutputAccordion({
 }: PlaygroundOutputAccordionProps) {
   const [open, setOpen] = useState(defaultOpen)
   const [copied, setCopied] = useState(false)
+  const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   function copy() {
     navigator.clipboard.writeText(copyText).then(() => {
       setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    })
+      if (timerRef.current) clearTimeout(timerRef.current)
+      timerRef.current = setTimeout(() => setCopied(false), 2000)
+    }).catch(() => {})
   }
+
+  React.useEffect(() => () => {
+    if (timerRef.current) clearTimeout(timerRef.current)
+  }, [])
 
   return (
     <div
@@ -44,6 +50,7 @@ export function PlaygroundOutputAccordion({
       >
         <button
           onClick={() => setOpen((o) => !o)}
+          aria-expanded={open ? 'true' : 'false'}
           style={{
             flex: 1,
             textAlign: 'left',
