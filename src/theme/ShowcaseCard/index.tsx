@@ -2,7 +2,7 @@ import React from 'react'
 import clsx from 'clsx'
 import Link from '@docusaurus/Link'
 import Translate from '@docusaurus/Translate'
-import { sortBy } from '../../core/utils.js'
+import { sortBy, resolveScreenshotUrl } from '../../core/utils.js'
 import { getIcon } from '../icons.js'
 import type { ShowcaseItem, PluginOptions } from '../../core/types.js'
 import ShowcaseTooltip from '../ShowcaseTooltip/index.js'
@@ -13,15 +13,14 @@ type Props = {
   options: PluginOptions
 }
 
-function getCardImage(item: ShowcaseItem): string {
-  return (
-    item.preview ??
-    `https://slorber-api-screenshot.netlify.app/${encodeURIComponent(item.website)}/showcase`
-  )
+function getCardImage(item: ShowcaseItem, screenshotUrl: string | null): string | null {
+  if (item.preview) return item.preview
+  if (screenshotUrl) return resolveScreenshotUrl(screenshotUrl, item.website)
+  return null
 }
 
 export default function ShowcaseCard({ item, options }: Props): React.JSX.Element {
-  const image = getCardImage(item)
+  const image = getCardImage(item, options.screenshotUrl ?? null)
   const isFavourite = options.favouriteTag ? item.tags.includes(options.favouriteTag) : false
 
   const sortedTags = sortBy(
@@ -35,9 +34,11 @@ export default function ShowcaseCard({ item, options }: Props): React.JSX.Elemen
 
   return (
     <li className={clsx('card shadow--md', styles.card)}>
-      <div className={clsx('card__image', styles.cardImage)}>
-        <img src={image} alt={item.name} loading="lazy" />
-      </div>
+      {image && (
+        <div className={clsx('card__image', styles.cardImage)}>
+          <img src={image} alt={item.name} loading="lazy" />
+        </div>
+      )}
       <div className="card__body">
         <div className={styles.cardHeader}>
           <h4 className={styles.cardTitle}>
