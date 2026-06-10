@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { sortBy, toggleListItem } from '../../src/core/utils.js'
+import { sortBy, toggleListItem, resolveScreenshotUrl } from '../../src/core/utils.js'
 
 describe('sortBy', () => {
   it('sorts an array by a string getter ascending', () => {
@@ -42,5 +42,43 @@ describe('toggleListItem', () => {
 
   it('returns empty array when removing last item', () => {
     expect(toggleListItem(['a'], 'a')).toEqual([])
+  })
+})
+
+describe('resolveScreenshotUrl', () => {
+  it('replaces {url} with the percent-encoded website', () => {
+    const result = resolveScreenshotUrl(
+      'https://screenshot.example.com/{url}/thumb',
+      'https://mysite.com/page?q=1&r=2',
+    )
+    expect(result).toBe(
+      'https://screenshot.example.com/https%3A%2F%2Fmysite.com%2Fpage%3Fq%3D1%26r%3D2/thumb',
+    )
+  })
+
+  it('replaces {rawUrl} with the raw website string', () => {
+    const result = resolveScreenshotUrl(
+      'https://screenshot.example.com/?target={rawUrl}',
+      'https://mysite.com',
+    )
+    expect(result).toBe('https://screenshot.example.com/?target=https://mysite.com')
+  })
+
+  it('resolves a template containing both {url} and {rawUrl}', () => {
+    const result = resolveScreenshotUrl(
+      'https://screenshot.example.com/{url}?raw={rawUrl}',
+      'https://mysite.com',
+    )
+    expect(result).toBe(
+      'https://screenshot.example.com/https%3A%2F%2Fmysite.com?raw=https://mysite.com',
+    )
+  })
+
+  it('returns the template unchanged when it contains no tokens', () => {
+    const result = resolveScreenshotUrl(
+      'https://screenshot.example.com/fixed-path',
+      'https://mysite.com',
+    )
+    expect(result).toBe('https://screenshot.example.com/fixed-path')
   })
 })

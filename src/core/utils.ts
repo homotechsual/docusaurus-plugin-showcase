@@ -20,3 +20,9 @@ export function toggleListItem<T>(list: T[], item: T): T[] {
   copy.splice(index, 1)
   return copy
 }
+
+export function resolveScreenshotUrl(template: string, website: string): string {
+  return template
+    .replace('{url}', encodeURIComponent(website))
+    .replace('{rawUrl}', website)
+}
