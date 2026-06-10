@@ -1,0 +1,132 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.outputColumn {
+  position: sticky;
+  top: 1rem;
+}
+
+.modeToggle {
+  margin-bottom: 1.5rem;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.hint {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.input {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.9rem;
+  transition: border-color 0.15s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+}
+
+.cellInput {
+  display: block;
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.9rem;
+}
+
+.presetOptions {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.presetLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.entryTable {
+  margin-bottom: 1.5rem;
+}
+
+.entryTableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.tableHead tr {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.tableHead th {
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.tableCell {
+  padding: 0.25rem 0.5rem;
+  vertical-align: middle;
+}
+
+.tableCellCenter {
+  padding: 0.25rem 0.5rem;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.colorInput {
+  display: block;
+  width: 2.5rem;
+  height: 2rem;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+}
+
+.codeBlock {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: var(--ifm-code-font-size);
+  line-height: 1.45;
+  white-space: pre;
+  color: var(--ifm-font-color-base);
+}

@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import clsx from 'clsx'
+import styles from './PlaygroundOutputAccordion.module.css'
 
 interface PlaygroundOutputAccordionProps {
   title: string
@@ -30,64 +32,27 @@ export function PlaygroundOutputAccordion({
   }, [])
 
   return (
-    <div
-      style={{
-        border: '1px solid var(--ifm-color-emphasis-300)',
-        borderRadius: '6px',
-        marginBottom: '1rem',
-        overflow: 'hidden',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0.6rem 1rem',
-          background: 'var(--ifm-color-emphasis-100)',
-          gap: '0.75rem',
-        }}
-      >
+    <div className={styles.container}>
+      <div className={styles.header}>
         <button
+          type="button"
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open ? 'true' : 'false'}
-          style={{
-            flex: 1,
-            textAlign: 'left',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            color: 'var(--ifm-font-color-base)',
-            fontWeight: 600,
-            fontSize: '0.95rem',
-            padding: 0,
-          }}
+          className={styles.toggleBtn}
         >
-          <span
-            style={{
-              display: 'inline-block',
-              transform: open ? 'rotate(90deg)' : 'rotate(0deg)',
-              transition: 'transform 0.15s',
-              fontSize: '0.7rem',
-            }}
-          >
-            ▶
-          </span>
+          <span className={clsx(styles.chevron, { [styles.chevronOpen]: open })}>▶</span>
           {title}
         </button>
         <button
+          type="button"
           className="button button--sm button--secondary"
           onClick={copy}
-          style={{ flexShrink: 0 }}
         >
           {copied ? '✅ Copied' : 'Copy'}
         </button>
       </div>
       {open && (
-        <div style={{ padding: '1rem', overflowX: 'auto' }}>
+        <div className={styles.body}>
           {children}
         </div>
       )}

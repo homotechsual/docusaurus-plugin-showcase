@@ -1,4 +1,3 @@
-// demo/src/pages/playground.tsx
 import React, { useState } from 'react'
 import Layout from '@theme/Layout'
 import Heading from '@theme/Heading'
@@ -10,8 +9,8 @@ import {
   generateSchema,
 } from '../lib/playground-generators'
 import type { PlaygroundState, TagEntry, StatusEntry, IconKey, CustomModeState } from '../lib/playground-generators'
+import styles from './playground.module.css'
 
-// ── Tag keys for favouriteTag <select> in preset mode ──────────────────────
 const PLUGINS_PRESET_TAG_KEYS = [
   'favourite', 'docusaurus', 'search', 'api', 'utility',
   'content', 'theme', 'markdown', 'analytics', 'integration', 'seo', 'editing',
@@ -30,23 +29,6 @@ const ICON_OPTIONS: { value: IconKey; label: string }[] = [
   { value: 'plus-square', label: 'plus-square' },
 ]
 
-// ── Shared input style ─────────────────────────────────────────────────────
-const inputStyle: React.CSSProperties = {
-  display: 'block',
-  width: '100%',
-  marginTop: '0.25rem',
-  padding: '0.4rem 0.6rem',
-  border: '1px solid var(--ifm-color-emphasis-300)',
-  borderRadius: '4px',
-  background: 'var(--ifm-background-color)',
-  color: 'var(--ifm-font-color-base)',
-  fontFamily: 'var(--ifm-font-family-base)',
-  fontSize: '0.9rem',
-}
-
-const fieldStyle: React.CSSProperties = { marginBottom: '1rem' }
-
-// ── Default states ─────────────────────────────────────────────────────────
 const SCALAR_DEFAULTS = {
   routeBasePath: 'showcase',
   dataDir: './data',
@@ -73,7 +55,6 @@ const defaultCustomState: PlaygroundState = {
   statuses: [],
 }
 
-// ── Helpers ────────────────────────────────────────────────────────────────
 function extractScalars(s: PlaygroundState) {
   return {
     routeBasePath: s.routeBasePath,
@@ -86,7 +67,6 @@ function extractScalars(s: PlaygroundState) {
   }
 }
 
-// ── Sub-components ─────────────────────────────────────────────────────────
 function ScalarFields({
   state,
   favouriteTagKeys,
@@ -108,32 +88,30 @@ function ScalarFields({
           ['screenshotUrl', 'screenshotUrl', 'Screenshot service template URL (optional)'],
         ] as [keyof typeof SCALAR_DEFAULTS, string, string][]
       ).map(([key, label, hint]) => (
-        <div key={key} style={fieldStyle}>
+        <div key={key} className={styles.field}>
           <label htmlFor={key}>
             <strong>{label}</strong>
-            <small style={{ display: 'block', color: 'var(--ifm-color-emphasis-700)' }}>{hint}</small>
+            <small className={styles.hint}>{hint}</small>
           </label>
           <input
             id={key}
             type="text"
             value={state[key] as string}
             onChange={(e) => onChange(key, e.target.value)}
-            style={inputStyle}
+            className={styles.input}
           />
         </div>
       ))}
-      <div style={fieldStyle}>
+      <div className={styles.field}>
         <label htmlFor="favouriteTag">
           <strong>favouriteTag</strong>
-          <small style={{ display: 'block', color: 'var(--ifm-color-emphasis-700)' }}>
-            Tag key to display as "Our favourites" section (optional)
-          </small>
+          <small className={styles.hint}>Tag key to display as "Our favourites" section (optional)</small>
         </label>
         <select
           id="favouriteTag"
           value={state.favouriteTag}
           onChange={(e) => onChange('favouriteTag', e.target.value)}
-          style={inputStyle}
+          className={styles.input}
         >
           <option value="">(none)</option>
           {favouriteTagKeys.map((k) => (
@@ -145,75 +123,63 @@ function ScalarFields({
   )
 }
 
-function TagRow({
-  tag,
-  onChange,
-  onRemove,
-}: {
+function TagRow({ tag, onChange, onRemove }: {
   tag: TagEntry
   onChange: (updated: TagEntry) => void
   onRemove: () => void
 }) {
-  const cellStyle: React.CSSProperties = { padding: '0.25rem 0.5rem', verticalAlign: 'middle' }
-  const cellInputStyle: React.CSSProperties = { ...inputStyle, marginTop: 0 }
   return (
     <tr>
-      <td style={cellStyle}>
-        <input style={cellInputStyle} value={tag.key} onChange={(e) => onChange({ ...tag, key: e.target.value })} placeholder="key" />
+      <td className={styles.tableCell}>
+        <input className={styles.cellInput} value={tag.key} onChange={(e) => onChange({ ...tag, key: e.target.value })} placeholder="key" />
       </td>
-      <td style={cellStyle}>
-        <input style={cellInputStyle} value={tag.label} onChange={(e) => onChange({ ...tag, label: e.target.value })} placeholder="Label" />
+      <td className={styles.tableCell}>
+        <input className={styles.cellInput} value={tag.label} onChange={(e) => onChange({ ...tag, label: e.target.value })} placeholder="Label" />
       </td>
-      <td style={cellStyle}>
-        <input style={cellInputStyle} value={tag.description} onChange={(e) => onChange({ ...tag, description: e.target.value })} placeholder="Description" />
+      <td className={styles.tableCell}>
+        <input className={styles.cellInput} value={tag.description} onChange={(e) => onChange({ ...tag, description: e.target.value })} placeholder="Description" />
       </td>
-      <td style={{ ...cellStyle, textAlign: 'center' }}>
-        <input type="color" value={tag.color} onChange={(e) => onChange({ ...tag, color: e.target.value })} style={{ width: '2.5rem', height: '2rem', cursor: 'pointer', border: 'none', padding: 0, background: 'none' }} />
+      <td className={styles.tableCellCenter}>
+        <input type="color" value={tag.color} onChange={(e) => onChange({ ...tag, color: e.target.value })} className={styles.colorInput} aria-label="Color" />
       </td>
-      <td style={cellStyle}>
-        <select style={cellInputStyle} value={tag.icon} onChange={(e) => onChange({ ...tag, icon: e.target.value as IconKey })}>
+      <td className={styles.tableCell}>
+        <select className={styles.cellInput} value={tag.icon} onChange={(e) => onChange({ ...tag, icon: e.target.value as IconKey })} aria-label="Icon">
           {ICON_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
       </td>
-      <td style={cellStyle}>
-        <button className="button button--sm button--danger" onClick={onRemove}>Remove</button>
+      <td className={styles.tableCell}>
+        <button type="button" className="button button--sm button--danger" onClick={onRemove}>Remove</button>
       </td>
     </tr>
   )
 }
 
-function StatusRow({
-  status,
-  onChange,
-  onRemove,
-}: {
+function StatusRow({ status, onChange, onRemove }: {
   status: StatusEntry
   onChange: (updated: StatusEntry) => void
   onRemove: () => void
 }) {
-  const cellStyle: React.CSSProperties = { padding: '0.25rem 0.5rem', verticalAlign: 'middle' }
-  const cellInputStyle: React.CSSProperties = { ...inputStyle, marginTop: 0 }
   return (
     <tr>
-      <td style={cellStyle}>
-        <input style={cellInputStyle} value={status.key} onChange={(e) => onChange({ ...status, key: e.target.value })} placeholder="key" />
+      <td className={styles.tableCell}>
+        <input className={styles.cellInput} value={status.key} onChange={(e) => onChange({ ...status, key: e.target.value })} placeholder="key" />
       </td>
-      <td style={cellStyle}>
-        <input style={cellInputStyle} value={status.label} onChange={(e) => onChange({ ...status, label: e.target.value })} placeholder="Label" />
+      <td className={styles.tableCell}>
+        <input className={styles.cellInput} value={status.label} onChange={(e) => onChange({ ...status, label: e.target.value })} placeholder="Label" />
       </td>
-      <td style={cellStyle}>
-        <input style={cellInputStyle} value={status.description} onChange={(e) => onChange({ ...status, description: e.target.value })} placeholder="Description" />
+      <td className={styles.tableCell}>
+        <input className={styles.cellInput} value={status.description} onChange={(e) => onChange({ ...status, description: e.target.value })} placeholder="Description" />
       </td>
-      <td style={{ ...cellStyle, textAlign: 'center' }}>
-        <input type="color" value={status.color} onChange={(e) => onChange({ ...status, color: e.target.value })} style={{ width: '2.5rem', height: '2rem', cursor: 'pointer', border: 'none', padding: 0, background: 'none' }} />
+      <td className={styles.tableCellCenter}>
+        <input type="color" value={status.color} onChange={(e) => onChange({ ...status, color: e.target.value })} className={styles.colorInput} aria-label="Color" />
       </td>
-      <td style={cellStyle}>
-        <select style={cellInputStyle} value={status.icon} onChange={(e) => onChange({ ...status, icon: e.target.value as IconKey })}>
+      <td className={styles.tableCell}>
+        <select className={styles.cellInput} value={status.icon} onChange={(e) => onChange({ ...status, icon: e.target.value as IconKey })} aria-label="Icon">
           {ICON_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
       </td>
-      <td style={cellStyle}>
-        <button className="button button--sm button--danger" onClick={onRemove}>Remove</button>
+      <td className={styles.tableCell}>
+        <button type="button" className="button button--sm button--danger" onClick={onRemove}>Remove</button>
       </td>
     </tr>
   )
@@ -221,17 +187,17 @@ function StatusRow({
 
 function EntryTable({ label, rows, onAddRow }: { label: string; rows: React.ReactNode; onAddRow: () => void }) {
   return (
-    <div style={{ marginBottom: '1.5rem' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+    <div className={styles.entryTable}>
+      <div className={styles.entryTableHeader}>
         <strong>{label}</strong>
-        <button className="button button--sm button--secondary" onClick={onAddRow}>+ Add</button>
+        <button type="button" className="button button--sm button--secondary" onClick={onAddRow}>+ Add</button>
       </div>
-      <div style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
-          <thead>
-            <tr style={{ background: 'var(--ifm-color-emphasis-100)' }}>
+      <div className={styles.tableWrapper}>
+        <table className={styles.table}>
+          <thead className={styles.tableHead}>
+            <tr>
               {['key', 'label', 'description', 'color', 'icon', ''].map((h) => (
-                <th key={h} style={{ padding: '0.35rem 0.5rem', textAlign: 'left', fontWeight: 600 }}>{h}</th>
+                <th key={h}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -242,7 +208,6 @@ function EntryTable({ label, rows, onAddRow }: { label: string; rows: React.Reac
   )
 }
 
-// ── Main page ──────────────────────────────────────────────────────────────
 export default function PlaygroundPage() {
   const [state, setState] = useState<PlaygroundState>(defaultPresetState)
 
@@ -267,18 +232,8 @@ export default function PlaygroundPage() {
 
   const favouriteTagKeys =
     state.mode === 'preset'
-      ? state.preset === 'plugins'
-        ? PLUGINS_PRESET_TAG_KEYS
-        : SITES_PRESET_TAG_KEYS
+      ? state.preset === 'plugins' ? PLUGINS_PRESET_TAG_KEYS : SITES_PRESET_TAG_KEYS
       : (state as CustomModeState).tags.map((t) => t.key)
-
-  const modeBtnBase: React.CSSProperties = {
-    padding: '0.35rem 1rem',
-    border: '1px solid var(--ifm-color-emphasis-300)',
-    cursor: 'pointer',
-    fontWeight: 600,
-    fontSize: '0.9rem',
-  }
 
   return (
     <Layout title="Config Playground" description="Interactively build your Showcase plugin configuration">
@@ -286,21 +241,16 @@ export default function PlaygroundPage() {
         <Heading as="h1">Config Playground</Heading>
         <p>Configure the plugin options and see the generated Docusaurus config, sample data file, and JSON Schema update in real time.</p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', alignItems: 'start' }}>
-          {/* ── Left: Controls ── */}
+        <div className={styles.grid}>
+          {/* Controls */}
           <div>
-            {/* Mode toggle */}
-            <div style={{ display: 'flex', marginBottom: '1.5rem', borderRadius: '6px', overflow: 'hidden', width: 'fit-content' }}>
+            <div className={`pills ${styles.modeToggle}`}>
               {(['preset', 'custom'] as const).map((m) => (
                 <button
                   key={m}
+                  type="button"
+                  className={`pills__item${state.mode === m ? ' pills__item--active' : ''}`}
                   onClick={() => switchMode(m)}
-                  style={{
-                    ...modeBtnBase,
-                    background: state.mode === m ? 'var(--ifm-color-primary)' : 'var(--ifm-background-color)',
-                    color: state.mode === m ? '#fff' : 'var(--ifm-font-color-base)',
-                    borderRadius: m === 'preset' ? '6px 0 0 6px' : '0 6px 6px 0',
-                  }}
                 >
                   {m === 'preset' ? 'Preset' : 'Custom'}
                 </button>
@@ -308,11 +258,11 @@ export default function PlaygroundPage() {
             </div>
 
             {state.mode === 'preset' && (
-              <div style={fieldStyle}>
+              <div className={styles.field}>
                 <label><strong>Preset</strong></label>
-                <div style={{ display: 'flex', gap: '1.5rem', marginTop: '0.5rem' }}>
+                <div className={styles.presetOptions}>
                   {(['plugins', 'sites'] as const).map((p) => (
-                    <label key={p} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', cursor: 'pointer' }}>
+                    <label key={p} className={styles.presetLabel}>
                       <input
                         type="radio"
                         name="preset"
@@ -339,63 +289,45 @@ export default function PlaygroundPage() {
                 <>
                   <EntryTable
                     label="Tags"
-                    onAddRow={() =>
-                      setState((prev) => ({
-                        ...prev,
-                        tags: [
-                          ...(prev as CustomModeState).tags,
-                          { key: '', label: '', description: '', color: '#3ecc5f', icon: '' },
-                        ],
-                      } as PlaygroundState))
-                    }
+                    onAddRow={() => setState((prev) => ({
+                      ...prev,
+                      tags: [...(prev as CustomModeState).tags, { key: '', label: '', description: '', color: '#3ecc5f', icon: '' }],
+                    } as PlaygroundState))}
                     rows={customState.tags.map((tag, i) => (
                       <TagRow
                         key={i}
                         tag={tag}
-                        onChange={(updated) =>
-                          setState((prev) => {
-                            const tags = [...(prev as CustomModeState).tags]
-                            tags[i] = updated
-                            return { ...prev, tags } as PlaygroundState
-                          })
-                        }
-                        onRemove={() =>
-                          setState((prev) => {
-                            const tags = (prev as CustomModeState).tags.filter((_, idx) => idx !== i)
-                            return { ...prev, tags } as PlaygroundState
-                          })
-                        }
+                        onChange={(updated) => setState((prev) => {
+                          const tags = [...(prev as CustomModeState).tags]
+                          tags[i] = updated
+                          return { ...prev, tags } as PlaygroundState
+                        })}
+                        onRemove={() => setState((prev) => {
+                          const tags = (prev as CustomModeState).tags.filter((_, idx) => idx !== i)
+                          return { ...prev, tags } as PlaygroundState
+                        })}
                       />
                     ))}
                   />
                   <EntryTable
                     label="Statuses"
-                    onAddRow={() =>
-                      setState((prev) => ({
-                        ...prev,
-                        statuses: [
-                          ...(prev as CustomModeState).statuses,
-                          { key: '', label: '', description: '', color: '#39ca30', icon: '' },
-                        ],
-                      } as PlaygroundState))
-                    }
+                    onAddRow={() => setState((prev) => ({
+                      ...prev,
+                      statuses: [...(prev as CustomModeState).statuses, { key: '', label: '', description: '', color: '#39ca30', icon: '' }],
+                    } as PlaygroundState))}
                     rows={customState.statuses.map((status, i) => (
                       <StatusRow
                         key={i}
                         status={status}
-                        onChange={(updated) =>
-                          setState((prev) => {
-                            const statuses = [...(prev as CustomModeState).statuses]
-                            statuses[i] = updated
-                            return { ...prev, statuses } as PlaygroundState
-                          })
-                        }
-                        onRemove={() =>
-                          setState((prev) => {
-                            const statuses = (prev as CustomModeState).statuses.filter((_, idx) => idx !== i)
-                            return { ...prev, statuses } as PlaygroundState
-                          })
-                        }
+                        onChange={(updated) => setState((prev) => {
+                          const statuses = [...(prev as CustomModeState).statuses]
+                          statuses[i] = updated
+                          return { ...prev, statuses } as PlaygroundState
+                        })}
+                        onRemove={() => setState((prev) => {
+                          const statuses = (prev as CustomModeState).statuses.filter((_, idx) => idx !== i)
+                          return { ...prev, statuses } as PlaygroundState
+                        })}
                       />
                     ))}
                   />
@@ -404,22 +336,22 @@ export default function PlaygroundPage() {
             })()}
           </div>
 
-          {/* ── Right: Output ── */}
-          <div>
+          {/* Output */}
+          <div className={styles.outputColumn}>
             <PlaygroundOutputAccordion title="docusaurus.config.ts" defaultOpen copyText={tsConfig}>
-              <pre style={{ margin: 0 }}><code>{tsConfig}</code></pre>
+              <pre className={styles.codeBlock}><code>{tsConfig}</code></pre>
             </PlaygroundOutputAccordion>
 
             <PlaygroundOutputAccordion title="docusaurus.config.js" copyText={jsConfig}>
-              <pre style={{ margin: 0 }}><code>{jsConfig}</code></pre>
+              <pre className={styles.codeBlock}><code>{jsConfig}</code></pre>
             </PlaygroundOutputAccordion>
 
             <PlaygroundOutputAccordion title="Sample YAML item" defaultOpen copyText={sampleYaml}>
-              <pre style={{ margin: 0 }}><code>{sampleYaml}</code></pre>
+              <pre className={styles.codeBlock}><code>{sampleYaml}</code></pre>
             </PlaygroundOutputAccordion>
 
             <PlaygroundOutputAccordion title="JSON Schema" copyText={schema}>
-              <pre style={{ margin: 0 }}><code>{schema}</code></pre>
+              <pre className={styles.codeBlock}><code>{schema}</code></pre>
             </PlaygroundOutputAccordion>
           </div>
         </div>
