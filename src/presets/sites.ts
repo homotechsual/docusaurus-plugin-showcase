@@ -1,8 +1,8 @@
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { PluginOptions } from '../core/types.js'
+import type { PresetOptions } from '../core/types.js'
 
-export const sitesPreset: Partial<PluginOptions> = {
+export const sitesPreset: PresetOptions = {
   favouriteTag: 'favorite',
   statuses: {},
   schemaPath: join(

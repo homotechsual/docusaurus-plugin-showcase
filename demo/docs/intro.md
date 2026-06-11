@@ -33,22 +33,22 @@ Register the plugin multiple times to add multiple showcase pages. Each instance
 
 ```ts
 // docusaurus.config.ts
-import { pluginsPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
-import { sitesPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
+import showcasePlugin, { type PluginOptions as ShowcasePluginOptions } from '@homotechsual/docusaurus-plugin-showcase'
+import { pluginsPreset, sitesPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
 
 export default {
   plugins: [
-    ['@homotechsual/docusaurus-plugin-showcase', {
+    [showcasePlugin, {
       ...pluginsPreset,
       dataDir: 'data/plugins',
       routeBasePath: 'plugins',
-    }],
-    ['@homotechsual/docusaurus-plugin-showcase', {
+    } satisfies ShowcasePluginOptions],
+    [showcasePlugin, {
       id: 'sites',                 // required for the second instance
       ...sitesPreset,
       dataDir: 'data/sites',
       routeBasePath: 'sites',
-    }],
+    } satisfies ShowcasePluginOptions],
   ],
 }
 ```

@@ -41,6 +41,8 @@ export type PluginOptions = {
   screenshotUrl?: string | null
 }
 
+export type PresetOptions = Omit<Partial<PluginOptions>, 'tags'> & { tags: Record<string, TagDef> }
+
 export type ShowcasePageData = {
   items: ShowcaseItem[]
   options: PluginOptions

@@ -1,8 +1,8 @@
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { PluginOptions } from '../core/types.js'
+import type { PresetOptions } from '../core/types.js'
 
-export const pluginsPreset: Partial<PluginOptions> = {
+export const pluginsPreset: PresetOptions = {
   favouriteTag: 'favourite',
   schemaPath: join(dirname(fileURLToPath(import.meta.url)), '../../schema/plugins-preset/1.0.0.json'),
   pageTitle: 'Docusaurus Plugin Directory',

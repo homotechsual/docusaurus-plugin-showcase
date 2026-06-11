@@ -1,8 +1,8 @@
 import { themes as prismThemes } from 'prism-react-renderer'
 import type { Config } from '@docusaurus/types'
 import type * as Preset from '@docusaurus/preset-classic'
-import { pluginsPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
-import { sitesPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
+import { pluginsPreset, sitesPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
+import showcasePlugin, { type PluginOptions as ShowcasePluginOptions, type PresetOptions as ShowcasePresetOptions } from '@homotechsual/docusaurus-plugin-showcase'
 
 // Import the Docusaurus version.
 import { DOCUSAURUS_VERSION } from '@docusaurus/utils'
@@ -25,17 +25,17 @@ const config: Config = {
   },
   plugins: [
     [
-      '@homotechsual/docusaurus-plugin-showcase',
+      showcasePlugin,
       {
         ...pluginsPreset,
         ...commonShowcaseConfig,
         dataDir: 'data/plugins',
         routeBasePath: 'plugins',
         submitUrl: 'https://github.com/homotechsual/docusaurus-plugin-showcase/issues',
-      },
+      } satisfies ShowcasePresetOptions,
     ],
     [
-      '@homotechsual/docusaurus-plugin-showcase',
+      showcasePlugin,
       {
         id: 'sites',
         ...sitesPreset,
@@ -43,10 +43,10 @@ const config: Config = {
         dataDir: 'data/sites',
         routeBasePath: 'sites',
         submitUrl: 'https://github.com/homotechsual/docusaurus-plugin-showcase/issues',
-      },
+      } satisfies ShowcasePresetOptions,
     ],
     [
-      '@homotechsual/docusaurus-plugin-showcase',
+      showcasePlugin,
       {
         id: 'tools',
         ...commonShowcaseConfig,

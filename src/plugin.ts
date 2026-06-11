@@ -69,4 +69,4 @@ export function validateOptions({
 export default pluginShowcase as unknown as (
   context: LoadContext,
   options: unknown,
-) => Plugin<ShowcasePageData>
+) => Plugin<unknown>

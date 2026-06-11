@@ -11,17 +11,18 @@ The `sitesPreset` is pre-configured for a **Docusaurus site showcase**. Its 10 t
 
 ```ts
 // docusaurus.config.ts
+import showcasePlugin, { type PluginOptions as ShowcasePluginOptions } from '@homotechsual/docusaurus-plugin-showcase'
 import { sitesPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
 
 export default {
   plugins: [
-    ['@homotechsual/docusaurus-plugin-showcase', {
+    [showcasePlugin, {
       id: 'sites',                   // required when registering the plugin more than once
       ...sitesPreset,
       dataDir: 'data/sites',
       routeBasePath: 'sites',
       submitUrl: 'https://github.com/your-org/your-repo/discussions/1',
-    }],
+    } satisfies ShowcasePluginOptions],
   ],
 }
 ```

@@ -13,9 +13,11 @@ Pass the full options object directly to the plugin:
 
 ```ts
 // docusaurus.config.ts
+import showcasePlugin, { type PluginOptions as ShowcasePluginOptions } from '@homotechsual/docusaurus-plugin-showcase'
+
 export default {
   plugins: [
-    ['@homotechsual/docusaurus-plugin-showcase', {
+    [showcasePlugin, {
       id: 'tools',                   // required if you have other showcase instances
       dataDir: 'data/tools',
       routeBasePath: 'tools',
@@ -55,7 +57,7 @@ export default {
           icon: 'circle-x',
         },
       },
-    }],
+    } satisfies ShowcasePluginOptions],
   ],
 }
 ```
@@ -87,11 +89,12 @@ Point `schemaPath` at a [JSON Schema Draft 2020-12](https://json-schema.org/draf
 
 ```ts
 import { join } from 'node:path'
+import showcasePlugin, { type PluginOptions as ShowcasePluginOptions } from '@homotechsual/docusaurus-plugin-showcase'
 
-['@homotechsual/docusaurus-plugin-showcase', {
+[showcasePlugin, {
   // ...
-  schemaPath: join(__dirname, 'schema/my-showcase.json'),
-}]
+  schemaPath: join(import.meta.dirname, 'schema/my-showcase.json'),
+} satisfies ShowcasePluginOptions]
 ```
 
 A minimal schema that requires `id`, `name`, `description`, and `website`, and rejects unknown fields:

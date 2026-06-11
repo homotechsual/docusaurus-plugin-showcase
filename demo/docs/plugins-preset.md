@@ -11,16 +11,17 @@ The `pluginsPreset` is pre-configured for a **Docusaurus plugin directory**. It 
 
 ```ts
 // docusaurus.config.ts
+import showcasePlugin, { type PluginOptions as ShowcasePluginOptions } from '@homotechsual/docusaurus-plugin-showcase'
 import { pluginsPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
 
 export default {
   plugins: [
-    ['@homotechsual/docusaurus-plugin-showcase', {
+    [showcasePlugin, {
       ...pluginsPreset,
       dataDir: 'data/plugins',       // relative to your site root
       routeBasePath: 'plugins',      // served at /plugins
       submitUrl: 'https://github.com/your-org/your-repo/discussions/1',
-    }],
+    } satisfies ShowcasePluginOptions],
   ],
 }
 ```
