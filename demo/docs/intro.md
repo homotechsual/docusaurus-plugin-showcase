@@ -5,6 +5,12 @@ sidebar_label: Getting Started
 
 # Getting Started
 
+[![NPM Version](https://img.shields.io/npm/v/%40homotechsual%2Fdocusaurus-plugin-showcase?style=for-the-badge)
+](https://www.npmjs.com/package/@homotechsual/docusaurus-plugin-showcase)
+[![NPM Last Update](https://img.shields.io/npm/last-update/%40homotechsual%2Fdocusaurus-plugin-showcase?style=for-the-badge)](https://www.npmjs.com/package/@homotechsual/docusaurus-plugin-showcase)
+[![NPM Downloads](https://img.shields.io/npm/dy/%40homotechsual%2Fdocusaurus-plugin-showcase?style=for-the-badge)
+](https://www.npmjs.com/package/@homotechsual/docusaurus-plugin-showcase)
+
 `@homotechsual/docusaurus-plugin-showcase` builds swizzleable showcase and directory pages from YAML data files. Each item lives in its own `.yaml` file; the plugin loads them, validates them against an optional JSON Schema, and renders a filterable, searchable page.
 
 ## Installation
