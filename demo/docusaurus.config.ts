@@ -151,6 +151,11 @@ const config: Config = {
         { type: 'docSidebar', sidebarId: 'docs', position: 'left', label: 'Docs' },
         { to: '/playground', label: 'Playground', position: 'left' },
         {
+          to: 'https://docs.homotechsual.dev/',
+          label: 'Other Projects',
+          position: 'right',
+        },
+        {
           to: 'https://github.com/homotechsual/docusaurus-plugin-showcase',
           label: 'GitHub',
           position: 'right',
@@ -177,6 +182,7 @@ const config: Config = {
           items: [
             { label: 'GitHub', href: 'https://github.com/homotechsual/docusaurus-plugin-showcase' },
             { label: 'npm', href: 'https://www.npmjs.com/package/@homotechsual/docusaurus-plugin-showcase' },
+            { label: 'Other Projects', href: 'https://docs.homotechsual.dev/' },
           ],
         },
       ],
