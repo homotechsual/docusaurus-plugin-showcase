@@ -3,6 +3,7 @@ import type { Config } from '@docusaurus/types'
 import type * as Preset from '@docusaurus/preset-classic'
 import { pluginsPreset, sitesPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
 import showcasePlugin, { type PluginOptions as ShowcasePluginOptions, type PresetOptions as ShowcasePresetOptions } from '@homotechsual/docusaurus-plugin-showcase'
+import plausiblePlugin, { type PluginOptions as PlausiblePluginOptions } from '@homotechsual/docusaurus-plugin-plausible'
 
 // Import the Docusaurus version.
 import { DOCUSAURUS_VERSION } from '@docusaurus/utils'
@@ -124,7 +125,12 @@ const config: Config = {
             icon: 'circle-x',
           },
         },
-      },
+      } satisfies ShowcasePresetOptions,
+      plausiblePlugin,
+      {
+        domain: 'showcase.docusaurus.homotechsual.dev',
+        outboundLinks: true,
+      } satisfies PlausiblePluginOptions,
     ],
   ],
   presets: [

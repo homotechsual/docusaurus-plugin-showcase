@@ -2911,6 +2911,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@homotechsual/docusaurus-plugin-plausible@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@homotechsual/docusaurus-plugin-plausible@npm:1.1.0"
+  peerDependencies:
+    "@docusaurus/core": ">=3.0.0 <5.0.0"
+    "@mdx-js/react": ">=3.0.0"
+    react: ~19.2.7
+    react-dom: ~19.2.7
+  checksum: 10c0/da34e8d1c3faf76001e41391d6d237d45f39b9ac4b1431863f50108dd0184e1c69a15ef551f51ef7abf6b4d39544452e1c52343a62493cbff544d1a423b6fb2a
+  languageName: node
+  linkType: hard
+
 "@homotechsual/docusaurus-plugin-showcase@workspace:*, @homotechsual/docusaurus-plugin-showcase@workspace:.":
   version: 0.0.0-use.local
   resolution: "@homotechsual/docusaurus-plugin-showcase@workspace:."
@@ -6952,6 +6964,7 @@ __metadata:
     "@docusaurus/preset-classic": "npm:^3.10.1"
     "@docusaurus/tsconfig": "npm:^3.10.1"
     "@docusaurus/types": "npm:^3.10.1"
+    "@homotechsual/docusaurus-plugin-plausible": "npm:^1.1.0"
     "@homotechsual/docusaurus-plugin-showcase": "workspace:*"
     "@mdx-js/react": "npm:^3.1.1"
     clsx: "npm:^2.1.1"
