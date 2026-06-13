@@ -1,8 +1,7 @@
-***
-
-sidebar\_position: 5
-sidebar\_label: Configuration Reference
----------------------------------------
+---
+sidebar_position: 5
+sidebar_label: Configuration Reference
+---
 
 # Configuration reference
 
@@ -12,15 +11,15 @@ sidebar\_label: Configuration Reference
 | --- | --- | --- | --- |
 | `dataDir` | `string` | ✓ | Directory containing `.yaml` data files, relative to the Docusaurus site root. |
 | `routeBasePath` | `string` | ✓ | URL path for the showcase page. `plugins` produces a page at `/plugins`. |
-| `tags` | `Record<string, TagDef>` | ✓ | Tag definitions. At least one tag is required. |
-| `statuses` | `Record<string, StatusDef>` | | Status definitions. Omit or pass `{}` to hide the status filter UI. |
+| `tags` | `Record<string, [TagDef](#tagdef)>` | ✓ | Tag definitions. At least one tag is required. |
+| `statuses` | `Record<string, [StatusDef](#statusdef)>` | | Status definitions. Omit or pass `{}` to hide the status filter UI. |
 | `id` | `string` | | Plugin instance ID - required when registering the plugin more than once in `docusaurus.config.ts`. |
 | `favouriteTag` | `string` | | Tag key whose items are surfaced in a highlighted "Our favourites" section above the main grid. |
 | `schemaPath` | `string` | | Absolute path to a [JSON Schema Draft 2020-12](https://json-schema.org/draft/2020-12) file. Items that fail validation are skipped with a build-time warning. |
 | `pageTitle` | `string` | | Page `<title>` and visible heading. Defaults to `"Showcase"`. |
 | `pageDescription` | `string` | | Sub-heading shown below the page title. Defaults to `"A community showcase."`. |
 | `submitUrl` | `string` | | URL for the "Add an item" call-to-action button. The button is hidden when this is omitted. |
-| `screenshotUrl` | `string` | | URL template used to auto-generate a preview image for items that have no `preview` field. Use `{url}` for the percent-encoded site URL or `{rawUrl}` for the raw URL. Example: `https://screenshot.example.com/{url}/thumb`. When omitted, items with no `preview` render without an image. |
+| `[screenshotUrl` | `string` | | URL template used to auto-generate a preview image for items that have no `preview` field. Use `{url}` for the percent-encoded site URL or `{rawUrl}` for the raw URL. Example: `https://screenshot.example.com/{url}/thumb`. When omitted, items with no `preview` render without an image. |
 
 ### ScreenGrabber recommended settings
 
