@@ -4,6 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic'
 import { pluginsPreset, sitesPreset } from '@homotechsual/docusaurus-plugin-showcase/presets'
 import showcasePlugin, { type PluginOptions as ShowcasePluginOptions, type PresetOptions as ShowcasePresetOptions } from '@homotechsual/docusaurus-plugin-showcase'
 import plausiblePlugin, { type PluginOptions as PlausiblePluginOptions } from '@homotechsual/docusaurus-plugin-plausible'
+import npm2yarn from '@docusaurus/remark-plugin-npm2yarn'
 
 // Import the Docusaurus version.
 import { DOCUSAURUS_VERSION } from '@docusaurus/utils'
@@ -141,6 +142,15 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          remarkPlugins: [
+            [
+              npm2yarn,
+              {
+                converters: ['yarn', 'pnpm', 'bun'],
+                sync: true,
+              },
+            ],
+          ],
         },
         blog: false,
         theme: {
