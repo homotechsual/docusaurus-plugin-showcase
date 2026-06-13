@@ -11,8 +11,8 @@ sidebar_label: Configuration Reference
 | --- | --- | --- | --- |
 | `dataDir` | `string` | ✓ | Directory containing `.yaml` data files, relative to the Docusaurus site root. |
 | `routeBasePath` | `string` | ✓ | URL path for the showcase page. `plugins` produces a page at `/plugins`. |
-| `tags` | `Record<string, [TagDef](#tagdef)>` | ✓ | Tag definitions. At least one tag is required. |
-| `statuses` | `Record<string, [StatusDef](#statusdef)>` | | Status definitions. Omit or pass `{}` to hide the status filter UI. |
+| `tags` | [`Record<string, TagDef>`](#tagdef) | ✓ | Tag definitions. At least one tag is required. |
+| `statuses` | [`Record<string, StatusDef>`](#statusdef) | | Status definitions. Omit or pass `{}` to hide the status filter UI. |
 | `id` | `string` | | Plugin instance ID - required when registering the plugin more than once in `docusaurus.config.ts`. |
 | `favouriteTag` | `string` | | Tag key whose items are surfaced in a highlighted "Our favourites" section above the main grid. |
 | `schemaPath` | `string` | | Absolute path to a [JSON Schema Draft 2020-12](https://json-schema.org/draft/2020-12) file. Items that fail validation are skipped with a build-time warning. |
