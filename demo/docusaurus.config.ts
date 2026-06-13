@@ -126,12 +126,14 @@ const config: Config = {
           },
         },
       } satisfies ShowcasePresetOptions,
+    ],
+    [
       plausiblePlugin,
       {
         domain: 'showcase.docusaurus.homotechsual.dev',
         outboundLinks: true,
       } satisfies PlausiblePluginOptions,
-    ],
+    ]
   ],
   presets: [
     [
