@@ -2911,15 +2911,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@homotechsual/docusaurus-plugin-plausible@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@homotechsual/docusaurus-plugin-plausible@npm:1.1.0"
+"@homotechsual/docusaurus-plugin-plausible@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@homotechsual/docusaurus-plugin-plausible@npm:1.1.1"
   peerDependencies:
     "@docusaurus/core": ">=3.0.0 <5.0.0"
     "@mdx-js/react": ">=3.0.0"
     react: ~19.2.7
     react-dom: ~19.2.7
-  checksum: 10c0/da34e8d1c3faf76001e41391d6d237d45f39b9ac4b1431863f50108dd0184e1c69a15ef551f51ef7abf6b4d39544452e1c52343a62493cbff544d1a423b6fb2a
+  checksum: 10c0/ca7e8584a75e9a05a7d382ad0360e239a8e293d7be56e88e96542d32121e4c082c0f84c3499b1132c6f96751fee382ed3f507d3d3f694d79a142996fa5869b9f
   languageName: node
   linkType: hard
 
@@ -6964,7 +6964,7 @@ __metadata:
     "@docusaurus/preset-classic": "npm:^3.10.1"
     "@docusaurus/tsconfig": "npm:^3.10.1"
     "@docusaurus/types": "npm:^3.10.1"
-    "@homotechsual/docusaurus-plugin-plausible": "npm:^1.1.0"
+    "@homotechsual/docusaurus-plugin-plausible": "npm:^1.1.1"
     "@homotechsual/docusaurus-plugin-showcase": "workspace:*"
     "@mdx-js/react": "npm:^3.1.1"
     clsx: "npm:^2.1.1"

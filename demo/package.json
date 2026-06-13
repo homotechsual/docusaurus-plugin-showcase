@@ -11,7 +11,7 @@
   "dependencies": {
     "@docusaurus/core": "^3.10.1",
     "@docusaurus/preset-classic": "^3.10.1",
-    "@homotechsual/docusaurus-plugin-plausible": "^1.1.0",
+    "@homotechsual/docusaurus-plugin-plausible": "^1.1.1",
     "@homotechsual/docusaurus-plugin-showcase": "workspace:*",
     "@mdx-js/react": "^3.1.1",
     "clsx": "^2.1.1",
