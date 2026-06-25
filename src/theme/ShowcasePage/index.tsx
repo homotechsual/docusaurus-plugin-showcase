@@ -49,7 +49,7 @@ export default function ShowcasePage({ showcase }: Props): React.JSX.Element {
           {options.submitUrl && (
             <Link className="button button--primary button--lg" href={options.submitUrl} target="_blank" rel="noreferrer">
               {getIcon('plus-square') && React.createElement(getIcon('plus-square')!, { size: 16, className: 'margin-right--sm' })}
-              <Translate id="showcase.header.addButton">Add an item</Translate>
+              {options.submitLabel ?? <Translate id="showcase.header.addButton">Add an item</Translate>}
             </Link>
           )}
         </section>

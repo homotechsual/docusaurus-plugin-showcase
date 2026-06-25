@@ -37,6 +37,7 @@ export type PluginOptions = {
   pageTitle?: string | null
   pageDescription?: string | null
   submitUrl?: string | null
+  submitLabel?: string | null
   schemaPath?: string | null
   screenshotUrl?: string | null
 }
