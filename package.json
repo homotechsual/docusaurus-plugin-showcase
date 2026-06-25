@@ -1,6 +1,6 @@
 {
   "name": "@homotechsual/docusaurus-plugin-showcase",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A Docusaurus plugin for building swizzleable showcase / directory pages from YAML data",
   "type": "module",
   "main": "lib/index.js",
