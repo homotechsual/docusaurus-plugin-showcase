@@ -5,15 +5,27 @@ sidebar_label: GitHub Issue Submission
 
 # GitHub Issue + Action submission workflow
 
-An alternative to the [built-in submission form](./configuration.mdx#plugin-options) is a fully automated GitHub-native approach: contributors fill in a GitHub Issue template, and a GitHub Actions workflow parses the issue, generates the YAML file, commits it to a new branch, and opens a draft pull request — all without leaving GitHub.
+An alternative to the [built-in submission form](./configuration.mdx#plugin-options) is a fully automated GitHub-native approach: contributors fill in a GitHub Issue template, and a GitHub Actions workflow parses the issue, generates the YAML file, commits it to a new branch, and opens a draft pull request, all without leaving GitHub.
 
 This is the pattern used by the [Docusaurus Community website](https://docusaurus.community).
 
 ## How it works
 
 1. A contributor opens a new issue using your **issue template**. GitHub renders it as a structured form with dropdowns, checkboxes, and text fields.
-2. When the issue is opened, the **GitHub Action** fires. It parses the issue body, validates required fields, generates the YAML, creates a branch, commits the file, and opens a draft PR — then posts the PR link back as a comment on the issue.
+2. When the issue is opened, the **GitHub Action** fires. It parses the issue body, validates required fields, generates the YAML, creates a branch, commits the file, and opens a draft PR and then posts the PR link back as a comment on the issue.
 3. A maintainer reviews and merges the PR.
+
+:::note[Label Creation]
+
+The workflow won't create the label automatically. You must create the label in your repository settings to match the `labels` entry in your issue template.
+
+:::
+
+:::tip[Schema Validation]
+
+If you have a `schemaUrl` defined in your plugin configuration, the Action will include it in the generated YAML file. This allows the `yaml-language-server` to validate the YAML in the PR and provide inline feedback to maintainers.
+
+:::
 
 ## Issue template
 
