@@ -39,6 +39,16 @@ function pluginShowcase(
         modules: { showcase: showcaseDataPath },
         exact: true,
       })
+
+      if (options.submitFormPath) {
+        const formPath = `/${[options.routeBasePath, options.submitFormPath.replace(/^\//, '')].filter(Boolean).join('/')}`
+        addRoute({
+          path: formPath,
+          component: '@theme/ShowcaseForm',
+          modules: { showcase: showcaseDataPath },
+          exact: true,
+        })
+      }
     },
   }
 }
@@ -63,6 +73,9 @@ export function validateOptions({
     tags: opts.tags,
     statuses: opts.statuses ?? {},
     screenshotUrl: opts.screenshotUrl ?? null,
+    submitFormPath: opts.submitFormPath ?? null,
+    submitGithubRepo: opts.submitGithubRepo ?? null,
+    schemaUrl: opts.schemaUrl ?? null,
   }
 }
 

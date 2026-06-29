@@ -5,6 +5,7 @@ import type { PresetOptions } from '../core/types.js'
 export const pluginsPreset: PresetOptions = {
   favouriteTag: 'favourite',
   schemaPath: join(dirname(fileURLToPath(import.meta.url)), '../../schema/plugins-preset/1.0.0.json'),
+  schemaUrl: 'https://cdn.jsdelivr.net/npm/@homotechsual/docusaurus-plugin-showcase/schema/plugins-preset/1.0.0.json',
   pageTitle: 'Docusaurus Plugin Directory',
   pageDescription: 'A community-sourced list of plugins for Docusaurus',
 

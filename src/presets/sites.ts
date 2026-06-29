@@ -9,6 +9,7 @@ export const sitesPreset: PresetOptions = {
     dirname(fileURLToPath(import.meta.url)),
     '../../schema/sites-preset/1.0.0.json',
   ),
+  schemaUrl: 'https://cdn.jsdelivr.net/npm/@homotechsual/docusaurus-plugin-showcase/schema/sites-preset/1.0.0.json',
   pageTitle: 'Docusaurus Site Showcase',
   pageDescription: 'List of websites people are building with Docusaurus',
   tags: {

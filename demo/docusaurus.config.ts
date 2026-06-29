@@ -33,7 +33,8 @@ const config: Config = {
         ...commonShowcaseConfig,
         dataDir: 'data/plugins',
         routeBasePath: 'plugins',
-        submitUrl: 'https://github.com/homotechsual/docusaurus-plugin-showcase/issues',
+        submitFormPath: 'submit',
+        submitGithubRepo: 'homotechsual/docusaurus-plugin-showcase',
       } satisfies ShowcasePresetOptions,
     ],
     [
@@ -44,7 +45,8 @@ const config: Config = {
         ...commonShowcaseConfig,
         dataDir: 'data/sites',
         routeBasePath: 'sites',
-        submitUrl: 'https://github.com/homotechsual/docusaurus-plugin-showcase/issues',
+        submitFormPath: 'submit',
+        submitGithubRepo: 'homotechsual/docusaurus-plugin-showcase',
       } satisfies ShowcasePresetOptions,
     ],
     [
@@ -57,7 +59,8 @@ const config: Config = {
         pageTitle: 'Documentation Frameworks',
         pageDescription: 'A showcase of frameworks and platforms for building documentation sites.',
         favouriteTag: 'featured',
-        submitUrl: 'https://github.com/homotechsual/docusaurus-plugin-showcase/issues',
+        submitFormPath: 'submit',
+        submitGithubRepo: 'homotechsual/docusaurus-plugin-showcase',
         tags: {
           featured: {
             label: 'Featured',

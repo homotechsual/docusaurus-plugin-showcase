@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-06-29
+
+### Added
+
+* `submitFormPath` plugin option — when set, registers a route at `/{routeBasePath}/{submitFormPath}` that renders a built-in `ShowcaseForm` component. The "Add an item" button on the showcase page links to this internal route instead of opening `submitUrl` externally.
+* `submitGithubRepo` plugin option — accepts a GitHub repository in `owner/repo` format. When used alongside `submitFormPath`, the form shows a **Copy YAML & open GitHub** button that copies the generated YAML to the clipboard and opens `github.com/{repo}/new/main?filename={dataDir}/{id}.yaml` in a new tab, guiding contributors through a pull-request submission.
+* `schemaUrl` plugin option — a public URL for the `# yaml-language-server: $schema=` header written into generated YAML. Kept separate from `schemaPath` (which remains a local/installed filesystem path used for AJV build-time validation). Both built-in presets now set `schemaUrl` to a jsDelivr CDN URL pointing at the bundled schema.
+* `ShowcaseForm` swizzleable theme component — a controlled form covering every `ShowcaseItem` field (status dropdown, tag checkboxes, npm packages textarea) with a live `ShowcaseCard` preview and a copyable YAML block. Required fields (`id`, `name`, `description`, `website`) are validated on submit attempt.
+* `serializePluginYaml(item, schemaUrl?)` — pure function exported from the package root. Serialises a `Partial<ShowcaseItem>` to the canonical YAML format used by data files: `name` and `description` always double-quoted, `null` rendered as the literal `null`, arrays in block-sequence style.
+
+### Changed
+
+* The "Add an item" button on `ShowcasePage` now links internally (no `target="_blank"`) when `submitFormPath` is configured, falling back to the existing `submitUrl` external link behaviour when it is not.
+* Built-in presets (`pluginsPreset`, `sitesPreset`) now include a `schemaUrl` pointing at the jsDelivr CDN so the submission form emits a valid, publicly resolvable `yaml-language-server` schema header.
+
 ## [1.1.1] - 2026-06-25
 
 ### Fixed
@@ -70,6 +85,8 @@ Initial release.
 * Bundled Heroicons (MIT) SVG icon components.
 * Demo Docusaurus site with sample plugin, sites, and tools data.
 * CI via GitHub Actions with npm and GitHub Package Registry publish workflows.
+
+[1.2.0]: https://github.com/homotechsual/docusaurus-plugin-showcase/compare/1.1.1...1.2.0
 
 [1.1.1]: https://github.com/homotechsual/docusaurus-plugin-showcase/compare/1.1.0...1.1.1
 
