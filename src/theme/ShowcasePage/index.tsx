@@ -31,6 +31,12 @@ export default function ShowcasePage({ showcase }: Props): React.JSX.Element {
   const description = options.pageDescription ?? translate({ id: 'showcase.page.description', message: 'A community showcase.' })
   const isFiltered = filteredItems.length !== sortedItems.length
 
+  const submitHref = options.submitFormPath
+    ? `/${[options.routeBasePath, options.submitFormPath.replace(/^\//, '')].filter(Boolean).join('/')}`
+    : options.submitUrl ?? null
+  const submitIsExternal = !options.submitFormPath && !!options.submitUrl
+  const PlusIcon = getIcon('plus-square')
+
   const favouriteItems = sortedItems.filter(
     (item) => options.favouriteTag && item.tags.includes(options.favouriteTag),
   )
@@ -46,9 +52,14 @@ export default function ShowcasePage({ showcase }: Props): React.JSX.Element {
         <section className={clsx('margin-top--lg margin-bottom--lg', styles.pageHeader)}>
           <h1>{title}</h1>
           <p>{description}</p>
-          {options.submitUrl && (
-            <Link className={clsx('button button--primary button--lg', styles.submitButton)} href={options.submitUrl} target="_blank" rel="noreferrer">
-              {getIcon('plus-square') && React.createElement(getIcon('plus-square')!, { size: 24, className: 'margin-right--sm' })}
+          {submitHref && (
+            <Link
+              className={clsx('button button--primary button--lg', styles.submitButton)}
+              href={submitHref}
+              target={submitIsExternal ? '_blank' : undefined}
+              rel={submitIsExternal ? 'noreferrer' : undefined}
+            >
+              {PlusIcon && <PlusIcon size={24} className="margin-right--sm" />}
               {options.submitLabel ?? <Translate id="showcase.header.addButton">Add an item</Translate>}
             </Link>
           )}
