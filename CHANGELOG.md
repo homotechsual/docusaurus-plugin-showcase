@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-09-10
+
+### Fixed
+
+* `ShowcasePage` now imports cards through `@theme/ShowcaseCard` so consumer swizzles are consistently honoured in favourites, filtered, and all-items sections.
+* `ShowcaseCard` now supports optional `website` values without forcing link behaviour, preventing crashes or broken interactions for entries that do not provide a website.
+* Card preview fallback is now deterministic: explicit `preview` first, generated screenshot from `screenshotUrl` when `website` exists, placeholder for items without `website`, and placeholder fallback on image load failure.
+
+### Changed
+
+* Documented the swizzle contract between `ShowcasePage` and `ShowcaseCard`, including modal-ready interaction ownership guidance.
+* Documented preview precedence and recommended placeholder behaviour in the configuration reference.
+
 ## [1.2.0] - 2026-06-29
 
 ### Added
@@ -97,3 +110,5 @@ Initial release.
 [1.0.0]: https://github.com/homotechsual/docusaurus-plugin-showcase/compare/0.1.0...1.0.0
 
 [0.1.0]: https://github.com/homotechsual/docusaurus-plugin-showcase/releases/tag/0.1.0
+
+[1.2.1]: https://github.com/homotechsual/docusaurus-plugin-showcase/compare/v1.2.0...v1.2.1

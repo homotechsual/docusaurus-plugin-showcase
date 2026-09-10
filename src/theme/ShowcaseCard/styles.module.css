@@ -37,6 +37,10 @@
   transition: background-size ease-out 200ms;
 }
 
+.cardTitleText {
+  color: inherit;
+}
+
 .cardLink:not(:focus):hover {
   background-size: 100% 1px;
 }

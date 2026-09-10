@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
 import Link from '@docusaurus/Link'
 import Translate from '@docusaurus/Translate'
-import { sortBy, resolveScreenshotUrl } from '../../core/utils.js'
+import { sortBy } from '../../core/utils.js'
 import { getIcon } from '../icons.js'
 import type { ShowcaseItem, PluginOptions } from '../../core/types.js'
 import ShowcaseTooltip from '../ShowcaseTooltip/index.js'
+import { DEFAULT_PLACEHOLDER_PREVIEW, normaliseCardUrl, resolveCardPreviewImage } from './utils.js'
 import styles from './styles.module.css'
 
 type Props = {
@@ -13,14 +14,24 @@ type Props = {
   options: PluginOptions
 }
 
-function getCardImage(item: ShowcaseItem, screenshotUrl: string | null): string | null {
-  if (item.preview) return item.preview
-  if (screenshotUrl) return resolveScreenshotUrl(screenshotUrl, item.website)
-  return null
-}
-
 export default function ShowcaseCard({ item, options }: Props): React.JSX.Element {
-  const image = getCardImage(item, options.screenshotUrl ?? null)
+  const initialImage = resolveCardPreviewImage(item, options.screenshotUrl)
+  const [image, setImage] = useState<string | null>(initialImage)
+
+  useEffect(() => {
+    setImage(initialImage)
+  }, [initialImage])
+
+  const website = normaliseCardUrl(item.website)
+  const imageAlt = `${item.name} preview`
+
+  function handleImageError() {
+    setImage((current) => {
+      if (current === DEFAULT_PLACEHOLDER_PREVIEW) return null
+      return DEFAULT_PLACEHOLDER_PREVIEW
+    })
+  }
+
   const isFavourite = options.favouriteTag ? item.tags.includes(options.favouriteTag) : false
 
   const sortedTags = sortBy(
@@ -36,15 +47,19 @@ export default function ShowcaseCard({ item, options }: Props): React.JSX.Elemen
     <li className={clsx('card shadow--md', styles.card)}>
       {image && (
         <div className={clsx('card__image', styles.cardImage)}>
-          <img src={image} alt={item.name} loading="lazy" />
+          <img src={image} alt={imageAlt} loading="lazy" onError={handleImageError} />
         </div>
       )}
       <div className="card__body">
         <div className={styles.cardHeader}>
           <h4 className={styles.cardTitle}>
-            <Link href={item.website} className={styles.cardLink}>
-              {item.name}
-            </Link>
+            {website ? (
+              <Link href={website} className={styles.cardLink}>
+                {item.name}
+              </Link>
+            ) : (
+              <span className={styles.cardTitleText}>{item.name}</span>
+            )}
           </h4>
           {isFavourite && FavIcon && (
             <FavIcon size={14} className={styles.favouriteIcon} />

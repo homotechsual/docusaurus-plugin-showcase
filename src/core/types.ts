@@ -16,7 +16,7 @@ export type ShowcaseItem = {
   id: string
   name: string
   description: string
-  website: string
+  website?: string | null
   source?: string | null
   preview?: string | null
   author?: string | null

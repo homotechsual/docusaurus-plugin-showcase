@@ -1,12 +1,12 @@
 import React, { useState, useMemo } from 'react'
 import clsx from 'clsx'
 import Layout from '@theme/Layout'
+import ShowcaseCard from '@theme/ShowcaseCard'
 import Link from '@docusaurus/Link'
 import Translate, { translate } from '@docusaurus/Translate'
 import { sortBy } from '../../core/utils.js'
 import type { ShowcaseItem, ShowcasePageData } from '../../core/types.js'
 import ShowcaseFilters from '../ShowcaseFilters/index.js'
-import ShowcaseCard from '../ShowcaseCard/index.js'
 import { getIcon } from '../icons.js'
 import styles from './styles.module.css'
 

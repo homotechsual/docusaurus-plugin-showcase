@@ -25,6 +25,23 @@ npx docusaurus swizzle @homotechsual/docusaurus-plugin-showcase <ComponentName>
 | `ShowcaseStatusSelect` | Unsafe / wrap | Renders the status filter dropdown. |
 | `ShowcaseTooltip` | Safe | Tooltip wrapper used on tag chips. |
 
+## Swizzle contract
+
+The plugin page renders card instances through the `@theme/ShowcaseCard` alias. This means any consumer override of `ShowcaseCard` is used consistently across showcase list rendering (favourites, filtered results, and all-items).
+
+`ShowcasePage` does not attach page-level click handlers or navigation wrappers around cards. A swizzled `ShowcaseCard` can fully own interaction patterns such as:
+
+- opening overlays or modals
+- replacing link-based navigation
+- custom analytics and click handling
+
+When implementing a modal in a swizzled card, follow accessible dialog semantics:
+
+- use `role="dialog"` and `aria-modal="true"`
+- provide `aria-labelledby` (and `aria-describedby` when appropriate)
+- trap focus while open and restore focus when closed
+- close on `Escape`
+
 ## Example - wrapping ShowcaseCard
 
 Wrapping lets you add content above or below the original component without fully owning its implementation:
