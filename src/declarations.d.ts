@@ -37,3 +37,14 @@ declare module '@theme/Layout' {
   type LayoutProps = { title?: string; description?: string; children?: ReactNode }
   export default function Layout(props: LayoutProps): JSX.Element
 }
+
+declare module '@theme/ShowcaseCard' {
+  import type { ShowcaseItem, PluginOptions } from './core/types.js'
+
+  type ShowcaseCardProps = {
+    item: ShowcaseItem
+    options: PluginOptions
+  }
+
+  export default function ShowcaseCard(props: ShowcaseCardProps): JSX.Element
+}
