@@ -97,7 +97,8 @@ export default function ShowcaseFilters({ items, options, onFilter }: Props): Re
     const search = new URLSearchParams(location.search)
     if (value) search.set(SearchNameKey, value)
     else search.delete(SearchNameKey)
-    history.push({ ...location, search: search.toString() })
+    // PUSH triggers Docusaurus's navigation focus reset on every keystroke.
+    history.replace({ ...location, search: search.toString() })
   }
 
   return (
