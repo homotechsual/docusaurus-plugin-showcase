@@ -17,7 +17,7 @@ const commonShowcaseConfig = {
 const config: Config = {
   title: 'Docusaurus Showcase Plugin',
   tagline: 'A swizzleable showcase page plugin for Docusaurus',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
   url: 'https://showcase.docusaurus.homotechsual.dev',
   baseUrl: '/',
   onBrokenLinks: 'warn',
