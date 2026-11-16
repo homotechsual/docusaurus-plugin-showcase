@@ -11,7 +11,7 @@ function Hero() {
     <header className={clsx('hero hero--primary', styles.hero)}>
       <div className="container">
         <Heading as="h1" className="hero__title">
-          @homotechsual/docusaurus-plugin-showcase
+          Showcase for Docusaurus
         </Heading>
         <p className="hero__subtitle">
           A swizzleable showcase / directory page plugin for Docusaurus v3, driven by YAML data files.
