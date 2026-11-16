@@ -1,14 +1,41 @@
 .hero {
+  --ifm-hero-background-color: #731c1c;
+  --ifm-hero-text-color: #fff;
+  --ifm-heading-color: #fff;
   padding: 4rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
 
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/img/hero-mark.svg') right center / auto 130% no-repeat;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.hero > :global(.container) {
+  position: relative;
+}
+
+.hero :global(.button--outline) {
+  color: #fff;
+  border-color: #fff;
+}
+
+.hero :global(.button--outline):hover {
+  background: #fff;
+  color: #731c1c;
+}
+
 .buttons {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1.5rem;
 }

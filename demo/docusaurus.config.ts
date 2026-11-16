@@ -165,6 +165,7 @@ const config: Config = {
   themeConfig: {
     navbar: {
       title: 'Showcase Plugin',
+      logo: { alt: 'Showcase', src: 'img/favicon.svg' },
       items: [
         { to: '/plugins', label: 'Plugin Preset Demo', position: 'left' },
         { to: '/sites', label: 'Sites Preset Demo', position: 'left' },
@@ -172,9 +173,15 @@ const config: Config = {
         { type: 'docSidebar', sidebarId: 'docs', position: 'left', label: 'Docs' },
         { to: '/playground', label: 'Playground', position: 'left' },
         {
-          to: 'https://docs.homotechsual.dev/',
-          label: 'Other Projects',
+          label: 'More Projects',
           position: 'right',
+          items: [
+            { label: 'OpenGraph', href: 'https://og.docusaurus.homotechsual.dev/' },
+            { label: 'FAQs', href: 'https://faqs.docusaurus.homotechsual.dev/' },
+            { label: 'Plausible', href: 'https://plausible.docusaurus.homotechsual.dev/' },
+            { label: 'Waypoint', href: 'https://waypoint.docusaurus.homotechsual.dev/' },
+            { label: 'All Projects', href: 'https://docs.homotechsual.dev/' },
+          ],
         },
         {
           href: 'https://github.com/sponsors/homotechsual',
