@@ -125,6 +125,9 @@ GitHub rate limits. Browser and proxy caching can make displayed metadata roughl
 Copy the example directory, change the Worker name and allowed origins in
 `wrangler.jsonc`, then deploy it:
 
+Keep the example's private `package.json`: it isolates Wrangler's npm tooling
+installation from the parent repository's Yarn workspace dependencies.
+
 ```bash
 npx wrangler login
 npx wrangler deploy
