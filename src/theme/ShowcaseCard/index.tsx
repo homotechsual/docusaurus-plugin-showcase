@@ -6,6 +6,7 @@ import { sortBy } from '../../core/utils.js'
 import { getIcon } from '../icons.js'
 import type { ShowcaseItem, PluginOptions } from '../../core/types.js'
 import ShowcaseTooltip from '../ShowcaseTooltip/index.js'
+import ShowcaseComputedFields from '../ShowcaseComputedFields/index.js'
 import { DEFAULT_PLACEHOLDER_PREVIEW, normaliseCardUrl, resolveCardPreviewImage } from './utils.js'
 import styles from './styles.module.css'
 
@@ -87,6 +88,7 @@ export default function ShowcaseCard({ item, options }: Props): React.JSX.Elemen
             {StatusIcon && <StatusIcon size={14} />}
           </p>
         )}
+        <ShowcaseComputedFields item={item} options={options} />
       </div>
       <ul className={clsx('card__footer', styles.cardFooter)}>
         {sortedTags.map((tagKey) => {

@@ -42,6 +42,15 @@ export default {
 
 For custom tags, statuses, JSON Schema validation, co-located images, swizzling, and all configuration options, see the [docs](https://showcase.docusaurus.homotechsual.dev).
 
+## Runtime computed fields
+
+Cards can resolve additional fields in the browser using synchronous or async
+functions exported from client-side modules. The demo uses this for npm versions,
+GitHub releases, and code updates through an external caching API.
+See the [runtime fields documentation](demo/docs/runtime-computed-fields.mdx) and
+[standalone Cloudflare Workers example](examples/metadata-worker). The proxy is
+not bundled or deployed by the npm package.
+
 ## Licence
 
 Apache-2.0

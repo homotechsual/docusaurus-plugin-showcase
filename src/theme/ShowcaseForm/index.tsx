@@ -385,7 +385,7 @@ export default function ShowcaseForm({ showcase }: Props): React.JSX.Element {
               <Translate id="showcase.form.preview.heading">Preview</Translate>
             </h2>
             <ul className={styles.previewList}>
-              <ShowcaseCard item={previewItem} options={options} />
+              <ShowcaseCard item={previewItem} options={{ ...options, computedFields: {} }} />
             </ul>
 
             <h2 className={styles.panelHeading}>

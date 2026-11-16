@@ -1,0 +1,173 @@
+---
+sidebar_position: 6
+sidebar_label: Runtime Computed Fields
+---
+
+# Runtime computed fields
+
+Computed fields obtain information when a visitor opens a showcase, not when the
+site is built. The plugins demo uses these fields to display npm versions, the
+latest stable GitHub release, and the latest default-branch commit independently.
+No YAML changes or site rebuilds are needed when upstream metadata changes.
+
+## Define a resolver
+
+Resolvers are ordinary synchronous or asynchronous functions exported from a
+**browser-safe module**. They receive the item and the field's configuration.
+Return an array of `{ text, href?, date? }` values, or `null` to hide the field for
+an inapplicable item. An empty array also hides the field. Dates must be parseable
+timestamps; links must use HTTP or HTTPS.
+
+```ts title="src/lib/my-resolvers.ts"
+import type { ComputedFieldResolver } from '@homotechsual/docusaurus-plugin-showcase'
+
+export const packageVersion: ComputedFieldResolver = async (item, { options }) => {
+  if (!item.npmPackages?.length) return null
+  if (typeof options.endpoint !== 'string') throw new Error('Missing metadata endpoint')
+  const url = new URL('/npm', options.endpoint)
+  url.searchParams.set('package', item.npmPackages[0])
+  const response = await fetch(url, { signal: AbortSignal.timeout(15_000) })
+  if (!response.ok) throw new Error(`Metadata request failed (${response.status})`)
+  const body = await response.json()
+  return body.values
+}
+```
+
+Reference the export from plugin configuration:
+
+```ts title="docusaurus.config.ts"
+computedFields: {
+  version: {
+    label: 'npm version',
+    resolver: {
+      module: '@site/src/lib/my-resolvers.ts',
+      exportName: 'packageVersion',
+    },
+    options: { endpoint: 'https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev' },
+    cacheTtlSeconds: 300,
+  },
+},
+```
+
+`@site/` paths are relative to the Docusaurus site root. Absolute paths and
+installed package module paths are also supported. Use explicit extensions for
+local modules. Exports are bundled into the browser, preserving their imports and
+closures; functions placed directly in Docusaurus config are deliberately rejected.
+Do not import Node-only modules or put tokens in resolver code or options.
+
+The framework renders each field's label and values on the card. Linked values
+open in a new tab; dates display relative time with an exact timestamp tooltip.
+Resolvers run after hydration, so server-rendered cards initially show loading
+text. Errors are logged and displayed as **Information unavailable**, with a retry
+button; `null` is not an error fallback.
+
+Fields resolve independently and never change YAML validation, submission output,
+sorting, or filters. Custom card components can render computed fields using the
+`ShowcaseComputedFields` theme component.
+The submission form's draft card preview disables computed fields to avoid API
+requests for incomplete values on every keystroke.
+
+## Caching boundaries
+
+The framework deduplicates in-flight requests for the same field/item and keeps
+successful results in memory for `cacheTtlSeconds` (default 300). Errors are held
+for 30 seconds to avoid request loops; the retry button bypasses that cache.
+There is no persistent browser-storage cache.
+
+The demo resolver additionally deduplicates API requests by package or repository
+URL, so multiple items referring to the same package/repository share requests.
+Its in-memory cache lasts five minutes.
+
+Neither browser cache is shared across visitors. That is the purpose of the
+separate caching proxy.
+
+## Cloudflare Workers example
+
+The [standalone example](https://github.com/homotechsual/docusaurus-plugin-showcase/tree/main/examples/metadata-worker)
+is **not included in the npm package**. The plugin knows nothing about npm,
+GitHub authentication, or Cloudflare: its resolvers simply call an HTTP API.
+Cloudflare Workers is the only proxy example provided here.
+
+The example exposes:
+
+| Endpoint | Meaning |
+| --- | --- |
+| `GET /npm?package=@scope/name` | Version associated with npm's `latest` dist-tag. |
+| `GET /github/release?repo=owner/repo` | GitHub's latest published stable release, excluding drafts and prereleases. |
+| `GET /github/commit?repo=owner/repo` | Most recent commit on the default branch, using its committer timestamp. |
+| `GET /health` | Deployment readiness check. |
+
+Successful responses have the shape `{ "values": [{ "text": "...", "href": "...", "date": "..." }] }`.
+Not every value has a link or date. A public repository with no stable releases
+returns **No stable releases published**, not an API error. Unknown packages/repositories
+and provider failures return non-2xx responses and are not cached.
+
+GitHub's latest-release endpoint uses GitHub's definition of the latest stable
+release; it is not an exhaustive sort of all releases by publication timestamp.
+The code update uses actual commits, not repository `updated_at` or `pushed_at`.
+
+The Worker caches successful metadata and public-repository checks for 15 minutes
+using `caches.default`. Cache keys are normalized, and CORS headers are attached
+per response rather than cached for one visitor's origin. **Cloudflare's Cache API
+is shared within a data centre, not replicated globally.** Cold requests in another
+data centre can still reach upstream APIs, and eviction can happen before expiry.
+Concurrent cache misses can also make duplicate upstream requests.
+
+See [Cloudflare's Cache API documentation](https://developers.cloudflare.com/workers/runtime-apis/cache/)
+for deployment limitations. Use a custom Worker domain for production and verify
+cache behaviour; dashboard/playground previews are not evidence of working edge
+caching. Cache retention is best-effort, not a durable store or a guarantee against
+GitHub rate limits. Browser and proxy caching can make displayed metadata roughly
+20 minutes old.
+
+### Deploy locally
+
+Copy the example directory, change the Worker name and allowed origins in
+`wrangler.jsonc`, then deploy it:
+
+```bash
+npx wrangler login
+npx wrangler deploy
+# Optional: a long-lived, least-privilege token for public GitHub metadata
+npx wrangler secret put GITHUB_TOKEN
+```
+
+For local development, run `npx wrangler dev` in the example directory and start
+the demo with `SHOWCASE_METADATA_API_URL` set to its local URL (normally
+`http://localhost:8787`). Without this variable, the demo logs a warning and
+explicitly disables live metadata.
+
+`ALLOWED_ORIGINS` is a comma-separated list of browser origins.
+`PAGES_PROJECT` additionally permits the project's HTTPS Pages preview domains.
+These are **CORS rules, not access control**: this is a public read-only API, and
+non-browser clients can call it. Requests are restricted to validated package/
+repository identifiers and fixed upstream hosts, never arbitrary fetch URLs.
+Private GitHub repositories are rejected even when the token can access them.
+Use a token with public-only access; never use the short-lived Actions
+`GITHUB_TOKEN` as a persistent Worker secret.
+
+For a busy public deployment, add account-appropriate Cloudflare rate-limiting
+rules and/or an identifier allowlist before opening it broadly. The example does
+not implement global quotas or global request coalescing.
+
+### Deploy alongside the demo
+
+The repository's demo workflow deploys the Worker as a **separate job** on
+main-branch pushes or manual runs on main, checks `/health`, and passes its URL
+to the Pages build through `SHOWCASE_METADATA_API_URL`.
+
+Configure these GitHub repository secrets:
+
+- `CLOUDFLARE_ACCOUNT_ID`
+- `CLOUDFLARE_API_TOKEN`, scoped for both Pages deployment and Workers editing
+- Optional `METADATA_GITHUB_TOKEN`, stored as the Worker's `GITHUB_TOKEN` secret
+
+Set the repository **variable** `SHOWCASE_METADATA_API_URL` to the deployed
+production Worker URL (or its custom domain) so Pages previews can reuse it.
+PR builds do not deploy the production Worker or receive its GitHub token.
+If the variable is absent, previews log the disabled-metadata warning.
+When removing an existing Worker token, delete the Worker secret explicitly;
+removing the GitHub secret alone does not remove a previously deployed binding.
+
+No deployment occurs merely by installing the plugin. The workflow and Worker
+are examples for this demo, not dependencies or services bundled with the library.

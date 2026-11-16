@@ -27,6 +27,28 @@ export type ShowcaseItem = {
   [key: string]: unknown
 }
 
+export type ComputedFieldValue = {
+  text: string
+  href?: string
+  date?: string
+}
+
+export type ComputedFieldContext = {
+  options: Record<string, unknown>
+}
+
+export type ComputedFieldResolver = (
+  item: ShowcaseItem,
+  context: ComputedFieldContext,
+) => ComputedFieldValue[] | null | Promise<ComputedFieldValue[] | null>
+
+export type ComputedFieldDef = {
+  label: string
+  resolver: { module: string; exportName: string } | ComputedFieldResolver
+  options?: Record<string, unknown>
+  cacheTtlSeconds?: number
+}
+
 export type PluginOptions = {
   id?: string
   dataDir: string
@@ -43,6 +65,7 @@ export type PluginOptions = {
   schemaPath?: string | null
   schemaUrl?: string | null
   screenshotUrl?: string | null
+  computedFields?: Record<string, ComputedFieldDef>
 }
 
 export type PresetOptions = Omit<Partial<PluginOptions>, 'tags'> & { tags: Record<string, TagDef> }

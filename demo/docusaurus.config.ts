@@ -14,6 +14,28 @@ const commonShowcaseConfig = {
   screenshotUrl: 'https://screengrabber.tools.homotechsual.dev/{url}/opengraph/_width:640?format=jpeg',
 }
 
+const metadataEndpoint = process.env.SHOWCASE_METADATA_API_URL
+const metadataFields: NonNullable<ShowcasePluginOptions['computedFields']> = metadataEndpoint ? {
+  npmVersions: {
+    label: 'npm version',
+    resolver: { module: '@site/src/lib/metadata-resolvers.ts', exportName: 'npmVersions' },
+    options: { endpoint: metadataEndpoint },
+  },
+  githubRelease: {
+    label: 'Latest GitHub release',
+    resolver: { module: '@site/src/lib/metadata-resolvers.ts', exportName: 'githubRelease' },
+    options: { endpoint: metadataEndpoint },
+  },
+  githubCommit: {
+    label: 'Latest code update',
+    resolver: { module: '@site/src/lib/metadata-resolvers.ts', exportName: 'githubCommit' },
+    options: { endpoint: metadataEndpoint },
+  },
+} : {}
+if (!metadataEndpoint) {
+  console.warn('[showcase-demo] SHOWCASE_METADATA_API_URL is unset; live metadata fields are disabled.')
+}
+
 const config: Config = {
   title: 'Showcase for Docusaurus',
   tagline: 'A swizzleable showcase page plugin for Docusaurus',
@@ -35,6 +57,7 @@ const config: Config = {
         routeBasePath: 'plugins',
         submitFormPath: 'submit',
         submitGithubRepo: 'homotechsual/docusaurus-plugin-showcase',
+        computedFields: metadataFields,
       } satisfies ShowcasePresetOptions,
     ],
     [

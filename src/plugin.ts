@@ -1,4 +1,5 @@
-import { dirname, join } from 'node:path'
+import { dirname, join, resolve } from 'node:path'
+import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import type { LoadContext, OptionValidationContext, Plugin } from '@docusaurus/types'
 import type { PluginOptions, ShowcasePageData } from './core/types.js'
@@ -22,7 +23,18 @@ function pluginShowcase(
         options,
         (msg) => console.warn(msg),
       )
-      return { items, options }
+      const computedFields = Object.fromEntries(
+        Object.entries(options.computedFields ?? {}).map(([key, field]) => {
+          if (typeof field.resolver === 'function') {
+            throw new Error('[docusaurus-plugin-showcase] Computed resolvers must be module references in plugin config.')
+          }
+          const module = field.resolver.module.startsWith('@site/')
+            ? resolve(context.siteDir, field.resolver.module.slice(6))
+            : createRequire(join(context.siteDir, 'package.json')).resolve(field.resolver.module)
+          return [key, { ...field, resolver: { ...field.resolver, module } }]
+        }),
+      )
+      return { items, options: { ...options, computedFields } }
     },
 
     async contentLoaded({ content, actions }) {
@@ -63,6 +75,18 @@ export function validateOptions({
   }
   if (!opts.tags || Object.keys(opts.tags).length === 0) {
     throw new Error('[docusaurus-plugin-showcase] The `tags` option must define at least one tag.')
+  }
+  for (const [key, field] of Object.entries(opts.computedFields ?? {})) {
+    if (!field || typeof field.label !== 'string' || !field.label.trim() ||
+      typeof field.resolver !== 'object' ||
+      typeof field.resolver?.module !== 'string' || !field.resolver.module ||
+      typeof field.resolver.exportName !== 'string' || !field.resolver.exportName) {
+      throw new Error(`[docusaurus-plugin-showcase] Computed field "${key}" requires a label and a resolver module/exportName reference.`)
+    }
+    if (field.cacheTtlSeconds !== undefined &&
+      (!Number.isFinite(field.cacheTtlSeconds) || field.cacheTtlSeconds < 0)) {
+      throw new Error(`[docusaurus-plugin-showcase] Computed field "${key}" requires a non-negative cacheTtlSeconds.`)
+    }
   }
 
   return {

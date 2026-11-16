@@ -61,10 +61,15 @@ minimumVersion: '3.0.0'
 | `author` | | Author name shown on the card. |
 | `tags` | ✓ | Array of tag keys. Must include at least one value from the list below. |
 | `status` | | One of the status keys below. |
-| `npmPackages` | | Array of npm package names (for future use / custom swizzle). |
+| `npmPackages` | | Array of npm package names, used by the demo's runtime version resolver. |
 | `minimumVersion` | | Minimum Docusaurus version required, e.g. `'3.0.0'`. |
 
 ## Tags
+
+The demo also displays live npm versions, GitHub releases, and default-branch
+code updates using [runtime computed fields](./runtime-computed-fields) backed by
+a standalone Cloudflare Worker. These fields are opt-in configuration, not
+automatic network requests made by `pluginsPreset`.
 
 | Key | Label | Description |
 | --- | --- | --- |

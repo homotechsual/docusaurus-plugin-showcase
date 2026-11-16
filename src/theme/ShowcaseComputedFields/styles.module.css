@@ -1,0 +1,33 @@
+.row {
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+  overflow-wrap: anywhere;
+}
+
+.values {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.retry {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ifm-link-color);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.retry:hover {
+  color: var(--ifm-link-hover-color);
+}
+
+.retry:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}

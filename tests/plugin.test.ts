@@ -7,6 +7,21 @@ const baseOptions = {
 }
 
 describe('validateOptions', () => {
+  it('preserves runtime field module configuration', () => {
+    const computedFields = { version: { label: 'Version', resolver: { module: '@site/version.ts', exportName: 'version' } } }
+    expect(validateOptions({ options: { ...baseOptions, computedFields } }).computedFields).toEqual(computedFields)
+  })
+
+  it.each([
+    { label: 'Version', resolver: () => null },
+    { label: 'Version', resolver: { module: 123, exportName: 'version' } },
+    { label: '', resolver: { module: 'version.ts', exportName: 'version' } },
+    { label: 'Version', resolver: { module: 'version.ts', exportName: '' } },
+    { label: 'Version', resolver: { module: 'version.ts', exportName: 'version' }, cacheTtlSeconds: -1 },
+  ])('rejects invalid computed field configuration', (definition) => {
+    expect(() => validateOptions({ options: { ...baseOptions, computedFields: { version: definition } } })).toThrow('Computed field')
+  })
+
   it('throws when dataDir is missing', () => {
     expect(() =>
       validateOptions({ options: { tags: baseOptions.tags } }),

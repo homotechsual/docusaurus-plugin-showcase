@@ -22,6 +22,32 @@ function makeItem(overrides: Partial<ShowcaseItem> = {}): ShowcaseItem {
 }
 
 describe('generateShowcaseModule', () => {
+  it('bundles resolver modules with named exports without serializing functions', () => {
+    const result = generateShowcaseModule({
+      items: [],
+      options: {
+        ...baseOptions,
+        computedFields: {
+          version: {
+            label: 'Version',
+            resolver: { module: 'C:\\site\\resolver.ts', exportName: 'version' },
+            options: { endpoint: 'https://example.com' },
+          },
+        },
+      },
+    })
+    expect(result).toContain('require("C:/site/resolver.ts")["version"]')
+    expect(result).toContain('"label":"Version"')
+    expect(result).toContain('"endpoint":"https://example.com"')
+  })
+
+  it('rejects config functions rather than dropping their closures silently', () => {
+    expect(() => generateShowcaseModule({
+      items: [],
+      options: { ...baseOptions, computedFields: { value: { label: 'Value', resolver: () => null } } },
+    })).toThrow('module reference')
+  })
+
   it('produces a CJS module string starting with the generated comment', () => {
     const data: ShowcasePageData = { items: [], options: baseOptions }
     const result = generateShowcaseModule(data)
