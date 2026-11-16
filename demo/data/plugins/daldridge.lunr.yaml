@@ -9,4 +9,4 @@ tags:
   - search
 status: unmaintained
 npmPackages:
-  - docusaurus-plugin-lunr
+  - @aldridged/docusaurus-plugin-lunr
