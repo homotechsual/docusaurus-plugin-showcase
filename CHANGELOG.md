@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.1] - 2026-11-16
+
+### Fixed
+
+* Selected statuses now always use OR matching independently of the tag operator, preventing empty results when AND is used with multiple default or URL-selected statuses.
+
 ## [1.4.0] - 2026-11-16
 
 ### Added

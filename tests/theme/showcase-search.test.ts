@@ -1,9 +1,9 @@
-import { Children, isValidElement, type InputHTMLAttributes, type ReactNode } from 'react'
+import { Children, isValidElement, useEffect, type InputHTMLAttributes, type ReactNode } from 'react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import ShowcaseFilters from '../../src/theme/ShowcaseFilters/index.js'
+import ShowcaseFilters, { filterItems } from '../../src/theme/ShowcaseFilters/index.js'
 import { readSearchTags } from '../../src/theme/ShowcaseTagSelect/index.js'
 import { readMaintenanceStatus } from '../../src/theme/ShowcaseStatusSelect/index.js'
-import type { PluginOptions } from '../../src/core/types.js'
+import type { PluginOptions, ShowcaseItem } from '../../src/core/types.js'
 
 const { location, history, setSearchValue } = vi.hoisted(() => ({
   location: {
@@ -97,5 +97,67 @@ describe('default showcase filters', () => {
   it('allows an explicit empty URL filter to clear defaults', () => {
     expect(readSearchTags('?tags=', ['react'])).toEqual([])
     expect(readMaintenanceStatus('?status=', ['maintained', 'unknown'])).toEqual([])
+  })
+})
+
+describe('status and tag filtering', () => {
+  const items: ShowcaseItem[] = [
+    { id: 'maintained', name: 'Maintained', description: '', tags: ['react', 'featured'], status: 'maintained' },
+    { id: 'unknown', name: 'Unknown', description: '', tags: ['react', 'featured'], status: 'unknown' },
+    { id: 'partial', name: 'Partial', description: '', tags: ['react'], status: 'maintained' },
+    { id: 'unmaintained', name: 'Unmaintained', description: '', tags: ['react', 'featured'], status: 'unmaintained' },
+    { id: 'missing', name: 'Missing', description: '', tags: ['react', 'featured'] },
+    { id: 'null', name: 'Null', description: '', tags: ['react', 'featured'], status: null },
+  ]
+  const statuses = ['maintained', 'unknown']
+
+  it.each(['AND', 'OR'] as const)('ORs statuses with the %s tag operator', (operator) => {
+    expect(filterItems(items, [], operator, null, statuses).map((item) => item.id))
+      .toEqual(['maintained', 'unknown', 'partial'])
+  })
+
+  it.each([
+    ['AND', ['maintained', 'unknown']],
+    ['OR', ['maintained', 'unknown', 'partial']],
+  ] as const)('preserves %s tag matching alongside ORed statuses', (operator, expected) => {
+    expect(filterItems(items, ['react', 'featured'], operator, null, statuses).map((item) => item.id))
+      .toEqual(expected)
+  })
+
+  it('still intersects search text with status and tag filters', () => {
+    expect(filterItems(items, ['react', 'featured'], 'AND', 'unknown', statuses).map((item) => item.id))
+      .toEqual(['unknown'])
+  })
+
+  it('leaves statuses unrestricted when none are selected', () => {
+    expect(filterItems(items, [], 'AND', null, [])).toEqual(items)
+  })
+
+  it.each([
+    ['?operator=AND', ['maintained', 'unknown', 'partial']],
+    ['?operator=AND&tags=react&tags=featured', ['maintained', 'unknown']],
+    ['?operator=AND&tags=react&tags=featured&status=maintained&status=unknown', ['maintained', 'unknown']],
+  ])('applies defaults and shared URL filters without requiring multiple statuses: %s', (search, expectedIds) => {
+    const previousSearch = location.search
+    location.search = search
+    const onFilter = vi.fn()
+    vi.mocked(useEffect).mockImplementationOnce((effect) => { effect() })
+    try {
+      ShowcaseFilters({
+        items,
+        options: {
+          dataDir: 'data',
+          routeBasePath: 'showcase',
+          tags: {},
+          statuses: {},
+          defaultFilters: { statuses },
+        },
+        onFilter,
+      })
+      const expected = items.filter((item) => expectedIds.includes(item.id))
+      expect(onFilter).toHaveBeenCalledExactlyOnceWith(expected)
+    } finally {
+      location.search = previousSearch
+    }
   })
 })

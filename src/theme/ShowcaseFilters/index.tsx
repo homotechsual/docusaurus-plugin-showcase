@@ -38,9 +38,7 @@ export function filterItems(
 
   if (selectedStatuses.length > 0) {
     result = result.filter((item) =>
-      operator === 'AND'
-        ? selectedStatuses.every((s) => item.status === s)
-        : selectedStatuses.some((s) => item.status === s),
+      selectedStatuses.some((s) => item.status === s),
     )
   }
 

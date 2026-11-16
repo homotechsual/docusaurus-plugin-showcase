@@ -32,7 +32,7 @@ export default function ShowcaseFilterToggle(): React.JSX.Element {
         type="checkbox"
         id={id}
         className={styles.srOnly}
-        aria-label="Toggle between OR and AND for the selected filters"
+        aria-label="Toggle between OR and AND for the selected tags"
         onChange={toggle}
         checked={isAnd}
       />

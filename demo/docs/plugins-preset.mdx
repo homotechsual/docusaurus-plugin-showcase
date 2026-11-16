@@ -36,6 +36,8 @@ defaultFilters: { statuses: ['maintained', 'unknown'] },
 
 Default filters apply only when the corresponding filter is absent from the URL. Visitors can change the selection, and a shared URL such as `?status=unmaintained` takes precedence.
 
+Selected statuses are always ORed: an item can be maintained **or** unknown. The OR/AND toggle affects only tags, so visitors can intersect tags without excluding items that match either status.
+
 ## YAML format
 
 Create one `.yaml` file per plugin inside `dataDir`. Add the language-server comment to get editor autocomplete and inline validation:
