@@ -53,6 +53,7 @@ const config: Config = {
       {
         ...pluginsPreset,
         ...commonShowcaseConfig,
+        defaultFilters: { statuses: ['maintained', 'unknown'] },
         dataDir: 'data/plugins',
         routeBasePath: 'plugins',
         submitFormPath: 'submit',

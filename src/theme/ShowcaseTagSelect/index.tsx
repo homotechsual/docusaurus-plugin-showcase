@@ -8,25 +8,30 @@ type Props = {
   id: string
   label: string
   icon: ReactNode
+  defaultTags?: string[]
 }
 
 const TagsQueryKey = 'tags'
 
-export function readSearchTags(search: string): string[] {
-  return new URLSearchParams(search).getAll(TagsQueryKey)
+export function readSearchTags(search: string, defaultTags: string[] = []): string[] {
+  const params = new URLSearchParams(search)
+  return params.has(TagsQueryKey)
+    ? params.getAll(TagsQueryKey).filter(Boolean)
+    : defaultTags
 }
 
-export default function ShowcaseTagSelect({ tag, id, label, icon }: Props): React.JSX.Element {
+export default function ShowcaseTagSelect({ tag, id, label, icon, defaultTags = [] }: Props): React.JSX.Element {
   const location = useLocation()
   const history = useHistory()
-  const selectedTags = readSearchTags(location.search)
+  const selectedTags = readSearchTags(location.search, defaultTags)
   const checked = selectedTags.includes(tag)
 
   const toggle = () => {
     const newTags = toggleListItem(selectedTags, tag)
     const search = new URLSearchParams(location.search)
     search.delete(TagsQueryKey)
-    newTags.forEach((t) => search.append(TagsQueryKey, t))
+    if (newTags.length === 0 && defaultTags.length > 0) search.append(TagsQueryKey, '')
+    else newTags.forEach((t) => search.append(TagsQueryKey, t))
     history.push({ ...location, search: search.toString() })
   }
 

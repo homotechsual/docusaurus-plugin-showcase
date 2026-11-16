@@ -12,6 +12,7 @@ import { getIcon } from '../icons.js'
 import styles from './styles.module.css'
 
 const SearchNameKey = 'name'
+const EmptyDefaults: string[] = []
 
 export function readSearchName(search: string): string | null {
   return new URLSearchParams(search).get(SearchNameKey)
@@ -65,23 +66,25 @@ export default function ShowcaseFilters({ items, options, onFilter }: Props): Re
   const location = useLocation()
   const history = useHistory()
   const [searchValue, setSearchValue] = useState<string>('')
+  const defaultTags = options.defaultFilters?.tags ?? EmptyDefaults
+  const defaultStatuses = options.defaultFilters?.statuses ?? EmptyDefaults
 
   useEffect(() => {
-    const tags = readSearchTags(location.search)
+    const tags = readSearchTags(location.search, defaultTags)
     const operator = readOperator(location.search)
     const name = readSearchName(location.search)
-    const statuses = readMaintenanceStatus(location.search)
+    const statuses = readMaintenanceStatus(location.search, defaultStatuses)
     setSearchValue(name ?? '')
     onFilter(filterItems(items, tags, operator, name, statuses))
-  }, [location.search, items, onFilter])
+  }, [location.search, items, onFilter, defaultTags, defaultStatuses])
 
   const { selectMessage } = usePluralForm()
   const filteredCount = filterItems(
     items,
-    readSearchTags(location.search),
+    readSearchTags(location.search, defaultTags),
     readOperator(location.search),
     readSearchName(location.search),
-    readMaintenanceStatus(location.search),
+    readMaintenanceStatus(location.search, defaultStatuses),
   ).length
 
   const countLabel = selectMessage(
@@ -124,6 +127,7 @@ export default function ShowcaseFilters({ items, options, onFilter }: Props): Re
                   tag={key}
                   id={id}
                   label={tag.label}
+                  defaultTags={defaultTags}
                   icon={Icon
                     ? <span className={styles.tagIcon} style={{ '--showcase-tag-color': tag.color } as React.CSSProperties}><Icon size={18} /></span>
                     : <span className={styles.tagColorDot} style={{ '--showcase-tag-color': tag.color } as React.CSSProperties} />}
@@ -146,6 +150,7 @@ export default function ShowcaseFilters({ items, options, onFilter }: Props): Re
                     status={key}
                     id={id}
                     label={status.label}
+                    defaultStatuses={defaultStatuses}
                     icon={Icon
                       ? <span className={styles.tagIcon} style={{ '--showcase-tag-color': status.color ?? undefined } as React.CSSProperties}><Icon size={18} /></span>
                       : status.color

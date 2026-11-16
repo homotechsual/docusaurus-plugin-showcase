@@ -12,6 +12,11 @@ export type StatusDef = {
   icon?: string | null
 }
 
+export type DefaultFilters = {
+  tags?: string[]
+  statuses?: string[]
+}
+
 export type ShowcaseItem = {
   id: string
   name: string
@@ -55,6 +60,7 @@ export type PluginOptions = {
   routeBasePath: string
   tags: Record<string, TagDef>
   statuses: Record<string, StatusDef>
+  defaultFilters?: DefaultFilters
   favouriteTag?: string | null
   pageTitle?: string | null
   pageDescription?: string | null

@@ -54,6 +54,31 @@ describe('validateOptions', () => {
     expect(result.statuses).toEqual(statuses)
   })
 
+  it('preserves valid default filters', () => {
+    const defaultFilters = { tags: ['foo'], statuses: ['maintained', 'unknown'] }
+    const result = validateOptions({
+      options: {
+        ...baseOptions,
+        statuses: {
+          maintained: { label: 'Maintained', description: 'desc' },
+          unknown: { label: 'Unknown', description: 'desc' },
+        },
+        defaultFilters,
+      },
+    })
+    expect(result.defaultFilters).toEqual(defaultFilters)
+  })
+
+  it.each([
+    { tags: ['missing'] },
+    { statuses: ['missing'] },
+    { tags: 'foo' },
+  ])('rejects invalid default filters: %j', (defaultFilters) => {
+    expect(() => validateOptions({
+      options: { ...baseOptions, statuses: {}, defaultFilters },
+    })).toThrow('default')
+  })
+
   it('defaults screenshotUrl to null when absent', () => {
     const result = validateOptions({ options: baseOptions })
     expect(result.screenshotUrl).toBeNull()

@@ -1,4 +1,4 @@
 export { default, validateOptions } from './plugin.js'
-export type { ShowcaseItem, TagDef, StatusDef, PluginOptions, PresetOptions, ShowcasePageData } from './core/types.js'
+export type { ShowcaseItem, TagDef, StatusDef, DefaultFilters, PluginOptions, PresetOptions, ShowcasePageData } from './core/types.js'
 export { serializePluginYaml } from './core/yaml-serializer.js'
 export type { ComputedFieldDef, ComputedFieldValue, ComputedFieldContext, ComputedFieldResolver } from './core/types.js'

@@ -1,6 +1,8 @@
 import { Children, isValidElement, type InputHTMLAttributes, type ReactNode } from 'react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import ShowcaseFilters from '../../src/theme/ShowcaseFilters/index.js'
+import { readSearchTags } from '../../src/theme/ShowcaseTagSelect/index.js'
+import { readMaintenanceStatus } from '../../src/theme/ShowcaseStatusSelect/index.js'
 import type { PluginOptions } from '../../src/core/types.js'
 
 const { location, history, setSearchValue } = vi.hoisted(() => ({
@@ -78,5 +80,22 @@ describe('Showcase search URL updates', () => {
       search: search.toString(),
     })
     expect(history.push).not.toHaveBeenCalled()
+  })
+})
+
+describe('default showcase filters', () => {
+  it('uses default tags and statuses when their URL filters are absent', () => {
+    expect(readSearchTags('', ['react'])).toEqual(['react'])
+    expect(readMaintenanceStatus('', ['maintained', 'unknown'])).toEqual(['maintained', 'unknown'])
+  })
+
+  it('uses URL filters instead of defaults when explicitly supplied', () => {
+    expect(readSearchTags('?tags=featured', ['react'])).toEqual(['featured'])
+    expect(readMaintenanceStatus('?status=unmaintained', ['maintained', 'unknown'])).toEqual(['unmaintained'])
+  })
+
+  it('allows an explicit empty URL filter to clear defaults', () => {
+    expect(readSearchTags('?tags=', ['react'])).toEqual([])
+    expect(readMaintenanceStatus('?status=', ['maintained', 'unknown'])).toEqual([])
   })
 })

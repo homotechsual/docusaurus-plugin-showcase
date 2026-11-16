@@ -76,6 +76,24 @@ export function validateOptions({
   if (!opts.tags || Object.keys(opts.tags).length === 0) {
     throw new Error('[docusaurus-plugin-showcase] The `tags` option must define at least one tag.')
   }
+  if (opts.defaultFilters !== undefined) {
+    if (!opts.defaultFilters || typeof opts.defaultFilters !== 'object' || Array.isArray(opts.defaultFilters)) {
+      throw new Error('[docusaurus-plugin-showcase] The `defaultFilters` option must be an object.')
+    }
+    for (const [filterType, values] of Object.entries(opts.defaultFilters)) {
+      if (filterType !== 'tags' && filterType !== 'statuses') {
+        throw new Error(`[docusaurus-plugin-showcase] Unknown default filter type "${filterType}".`)
+      }
+      if (!Array.isArray(values) || values.some((value) => typeof value !== 'string')) {
+        throw new Error(`[docusaurus-plugin-showcase] The default ${filterType} filter must be an array of keys.`)
+      }
+      const definitions = filterType === 'tags' ? opts.tags : opts.statuses ?? {}
+      const unknownValues = values.filter((value) => !Object.hasOwn(definitions, value))
+      if (unknownValues.length > 0) {
+        throw new Error(`[docusaurus-plugin-showcase] Unknown default ${filterType} filter key(s): ${unknownValues.join(', ')}.`)
+      }
+    }
+  }
   for (const [key, field] of Object.entries(opts.computedFields ?? {})) {
     if (!field || typeof field.label !== 'string' || !field.label.trim() ||
       typeof field.resolver !== 'object' ||

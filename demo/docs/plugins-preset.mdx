@@ -28,6 +28,14 @@ export default {
 
 `pluginsPreset` provides sensible defaults for every other option. The three fields above are the only ones you need to supply.
 
+You can optionally set default filters. For example, to show maintained plugins and those whose maintenance status is unknown by default:
+
+```ts
+defaultFilters: { statuses: ['maintained', 'unknown'] },
+```
+
+Default filters apply only when the corresponding filter is absent from the URL. Visitors can change the selection, and a shared URL such as `?status=unmaintained` takes precedence.
+
 ## YAML format
 
 Create one `.yaml` file per plugin inside `dataDir`. Add the language-server comment to get editor autocomplete and inline validation:
