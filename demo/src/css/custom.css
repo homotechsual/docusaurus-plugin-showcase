@@ -132,6 +132,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   20%, 60% { transform: scale(1.15); }
 }
 @media (prefers-reduced-motion: reduce) {
+  .designedBy .heart { animation: none; }
   .sponsorship-link:hover::before { animation: none; }
 }
 @media (max-width: 1359px) {
