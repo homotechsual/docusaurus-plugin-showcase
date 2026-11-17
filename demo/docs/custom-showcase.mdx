@@ -64,6 +64,16 @@ export default {
 
 See the [configuration reference](./configuration) for a full list of options, `TagDef`, and `StatusDef` fields.
 
+### Default filters
+
+Custom showcases support the same `defaultFilters` option as both built-in presets. Using the keys defined above, you can initially show featured, active items:
+
+```ts
+defaultFilters: { tags: ['featured'], statuses: ['active'] },
+```
+
+Defaults are opt-in per instance. Use only keys from your own tag and status definitions. Status selections always use OR, while the OR/AND toggle controls tags only. See [default filters](./configuration#default-filters) for URL overrides and clearing selections.
+
 ## YAML format
 
 The only required core field for a custom showcase is `id`. Everything else is optional:

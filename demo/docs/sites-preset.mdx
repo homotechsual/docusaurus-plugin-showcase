@@ -27,6 +27,16 @@ export default {
 }
 ```
 
+## Default filters
+
+The shared `defaultFilters` option also works with the sites preset. For example, add this after `...sitesPreset` to initially show open-source sites:
+
+```ts
+defaultFilters: { tags: ['opensource'] },
+```
+
+Visitors can change or clear the selection. The sites preset has no statuses by default, so status defaults require defining statuses first. See [default filters](./configuration#default-filters) for URL override behavior.
+
 ## YAML format
 
 ```yaml

@@ -28,7 +28,7 @@ export default {
 
 `pluginsPreset` provides sensible defaults for every other option. The three fields above are the only ones you need to supply.
 
-You can optionally set default filters. For example, to show maintained plugins and those whose maintenance status is unknown by default:
+The shared `defaultFilters` option works with this preset, the sites preset, and custom showcases. For example, to show maintained plugins and those whose maintenance status is unknown by default:
 
 ```ts
 defaultFilters: { statuses: ['maintained', 'unknown'] },

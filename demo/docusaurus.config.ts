@@ -5,6 +5,7 @@ import { pluginsPreset, sitesPreset } from '@homotechsual/docusaurus-plugin-show
 import showcasePlugin, { type PluginOptions as ShowcasePluginOptions, type PresetOptions as ShowcasePresetOptions } from '@homotechsual/docusaurus-plugin-showcase'
 import plausiblePlugin, { type PluginOptions as PlausiblePluginOptions } from '@homotechsual/docusaurus-plugin-plausible'
 import npm2yarn from '@docusaurus/remark-plugin-npm2yarn'
+import { renderPage } from './imageRenderers.js'
 
 // Import the Docusaurus version.
 import { DOCUSAURUS_VERSION } from '@docusaurus/utils'
@@ -48,6 +49,16 @@ const config: Config = {
     locales: ['en'],
   },
   plugins: [
+    [
+      '@homotechsual/docusaurus-og',
+      {
+        path: 'og-images',
+        imageRenderers: {
+          'docusaurus-plugin-content-docs': renderPage,
+          'docusaurus-plugin-content-pages': renderPage,
+        },
+      },
+    ],
     [
       showcasePlugin,
       {

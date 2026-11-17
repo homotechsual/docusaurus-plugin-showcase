@@ -27,6 +27,25 @@ sidebar_label: Configuration Reference
 | `screenshotUrl` | `string` | | URL template used to auto-generate a preview image for items that have no `preview` field. Use `{url}` for the percent-encoded site URL or `{rawUrl}` for the raw URL. Example: `https://screenshot.example.com/{url}/thumb`. Screenshot generation only applies when `website` is present. |
 | `computedFields` | `Record<string, ComputedFieldDef>` | | Runtime field definitions with a label, resolver module/export reference, optional public `options`, and optional `cacheTtlSeconds` (default 300). See [runtime computed fields](./runtime-computed-fields). |
 
+### Default filters
+
+`defaultFilters` works with **both built-in presets (`pluginsPreset` and `sitesPreset`) and custom showcases**. It is a shared plugin option, not a plugins-preset-only feature. Defaults are opt-in and configured independently for each showcase instance.
+
+```ts
+// Plugins preset: include either maintenance status.
+defaultFilters: { statuses: ['maintained', 'unknown'] },
+
+// Sites preset: initially show open-source sites.
+defaultFilters: { tags: ['opensource'] },
+
+// Custom showcase: use keys from your own tag and status definitions.
+defaultFilters: { tags: ['featured'], statuses: ['active'] },
+```
+
+These are alternative values for the same option. Every key must exist in the instance's `tags` or `statuses` definitions; unknown keys fail configuration validation. The sites preset defines no statuses by default, so use tag defaults unless you also define statuses.
+
+Each URL filter overrides only its corresponding default: `?tags=personal` replaces default tags but leaves default statuses in effect. An explicit empty filter (`?tags=` or `?status=`) clears that default. Statuses always use OR, the OR/AND toggle controls tags only, and the tag, status, and text filters intersect.
+
 ### Preview precedence
 
 Card previews resolve in this order:

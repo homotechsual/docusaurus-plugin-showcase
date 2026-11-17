@@ -51,6 +51,14 @@ See the [runtime fields documentation](demo/docs/runtime-computed-fields.mdx) an
 [standalone Cloudflare Workers example](examples/metadata-worker). The proxy is
 not bundled or deployed by the npm package.
 
+## Demo site integrations
+
+The demo homepage displays the package version and links to the current release.
+Its production build generates OpenGraph images for documentation and pages using
+`@homotechsual/docusaurus-og` and locally installed Inter fonts. Plausible tracking
+is configured for `showcase.docusaurus.homotechsual.dev`; these integrations are
+demo-only and are not enabled automatically for plugin consumers.
+
 ## Licence
 
 Apache-2.0

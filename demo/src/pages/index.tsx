@@ -4,6 +4,7 @@ import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 import Heading from '@theme/Heading'
+import packageInfo from '../../../package.json'
 import styles from './index.module.css'
 
 function Hero() {
@@ -24,6 +25,11 @@ function Hero() {
             Read the Docs
           </Link>
         </div>
+        <p className="padding-top--md margin-bottom--none">
+          <Link className="button button--outline button--secondary button--sm" to="https://github.com/homotechsual/docusaurus-plugin-showcase/releases/latest">
+            Current release: v{packageInfo.version}
+          </Link>
+        </p>
       </div>
     </header>
   )
@@ -45,7 +51,7 @@ const features: FeatureItem[] = [
   },
   {
     title: 'Filtering built in',
-    description: 'Tag-based and status-based filtering with AND/OR logic, plus free-text search, all URL-driven for deep linking.',
+    description: 'Configurable default filters, AND/OR tag matching, status selection, and free-text search, all URL-driven for deep linking.',
   },
   {
     title: 'Plugins preset',
